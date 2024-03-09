@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://006kxed2ooro"]
+[gd_scene load_steps=16 format=3 uid="uid://006kxed2ooro"]
 
 [ext_resource type="Texture2D" uid="uid://cown2u63ehvnq" path="res://Sprites/test.png" id="1_g8k6h"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="2_03wv5"]
@@ -7,14 +7,20 @@
 [ext_resource type="Script" path="res://Scripts/Player/SlashState.gd" id="5_5otrx"]
 [ext_resource type="PackedScene" uid="uid://c3txl1it6w24b" path="res://Scenes/slash.tscn" id="6_vyje8"]
 [ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="6_xng8r"]
+[ext_resource type="Script" path="res://Scripts/Player/ShootState.gd" id="7_7k3g0"]
+[ext_resource type="PackedScene" uid="uid://c12nt5dkpto6n" path="res://Scenes/projectile.tscn" id="8_wgypr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i2swy"]
 atlas = ExtResource("1_g8k6h")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d2b2b"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_34msw"]
 atlas = ExtResource("1_g8k6h")
-region = Rect2(0, 2, 16, 14)
+region = Rect2(0, 4, 16, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vx8r5"]
+atlas = ExtResource("1_g8k6h")
+region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bkxsh"]
 atlas = ExtResource("1_g8k6h")
@@ -35,7 +41,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_i2swy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d2b2b")
+"texture": SubResource("AtlasTexture_34msw")
 }],
 "loop": true,
 "name": &"move",
@@ -43,14 +49,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_g8k6h")
+"texture": SubResource("AtlasTexture_vx8r5")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
 }, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bkxsh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bkxsh")
-}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bkxsh")
 }],
@@ -68,7 +73,7 @@ position = Vector2(50, 38)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_a7qxu")
-animation = &"slash"
+animation = &"move"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xypcx")
@@ -94,7 +99,16 @@ slash = ExtResource("6_vyje8")
 slashpos = NodePath("../../SlashPos")
 
 [node name="Timer" type="Timer" parent="StateMachine/slash"]
-wait_time = 0.2
+wait_time = 0.25
+
+[node name="shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "shootpos")]
+script = ExtResource("7_7k3g0")
+anim = NodePath("../../AnimatedSprite2D")
+projectile = ExtResource("8_wgypr")
+shootpos = NodePath("../../SlashPos")
+
+[node name="Timer" type="Timer" parent="StateMachine/shoot"]
+wait_time = 0.3
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("6_xng8r")
@@ -103,3 +117,4 @@ script = ExtResource("6_xng8r")
 position = Vector2(25, 0)
 
 [connection signal="timeout" from="StateMachine/slash/Timer" to="StateMachine/slash" method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/shoot/Timer" to="StateMachine/shoot" method="_on_timer_timeout"]

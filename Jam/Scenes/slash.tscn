@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c3txl1it6w24b"]
 
-[ext_resource type="Script" path="res://Scripts/Player/slash.gd" id="1_gcxos"]
+[ext_resource type="Script" path="res://Scripts/Player/Slash.gd" id="1_h22l4"]
 [ext_resource type="Texture2D" uid="uid://d0mecp4sln6av" path="res://Sprites/slash.png" id="2_ighhw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucuxr"]
@@ -17,7 +17,7 @@ animations = [{
 }]
 
 [node name="Slash" type="Area2D"]
-script = ExtResource("1_gcxos")
+script = ExtResource("1_h22l4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ucuxr")
