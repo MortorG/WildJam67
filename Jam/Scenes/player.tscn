@@ -1,0 +1,105 @@
+[gd_scene load_steps=13 format=3 uid="uid://006kxed2ooro"]
+
+[ext_resource type="Texture2D" uid="uid://cown2u63ehvnq" path="res://Sprites/test.png" id="1_g8k6h"]
+[ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="2_03wv5"]
+[ext_resource type="Script" path="res://Scripts/Player/IdleState.gd" id="3_lpl8u"]
+[ext_resource type="Script" path="res://Scripts/Player/MovingState.gd" id="4_s5irc"]
+[ext_resource type="Script" path="res://Scripts/Player/SlashState.gd" id="5_5otrx"]
+[ext_resource type="PackedScene" uid="uid://c3txl1it6w24b" path="res://Scenes/slash.tscn" id="6_vyje8"]
+[ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="6_xng8r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2swy"]
+atlas = ExtResource("1_g8k6h")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2b2b"]
+atlas = ExtResource("1_g8k6h")
+region = Rect2(0, 2, 16, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkxsh"]
+atlas = ExtResource("1_g8k6h")
+region = Rect2(4, 0, 12, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a7qxu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_g8k6h")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2swy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2b2b")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_g8k6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkxsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkxsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkxsh")
+}],
+"loop": true,
+"name": &"slash",
+"speed": 4.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xypcx"]
+radius = 8.0
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(50, 38)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_a7qxu")
+animation = &"slash"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xypcx")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
+script = ExtResource("2_03wv5")
+initialState = NodePath("idle")
+
+[node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim")]
+script = ExtResource("3_lpl8u")
+anim = NodePath("../../AnimatedSprite2D")
+
+[node name="moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "anim")]
+script = ExtResource("4_s5irc")
+player = NodePath("../..")
+anim = NodePath("../../AnimatedSprite2D")
+speed = 100.0
+
+[node name="slash" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "slashpos")]
+script = ExtResource("5_5otrx")
+anim = NodePath("../../AnimatedSprite2D")
+slash = ExtResource("6_vyje8")
+slashpos = NodePath("../../SlashPos")
+
+[node name="Timer" type="Timer" parent="StateMachine/slash"]
+wait_time = 0.2
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_xng8r")
+
+[node name="SlashPos" type="Node2D" parent="."]
+position = Vector2(25, 0)
+
+[connection signal="timeout" from="StateMachine/slash/Timer" to="StateMachine/slash" method="_on_timer_timeout"]
