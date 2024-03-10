@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://d26gqycn8pjv"]
+
+[ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="1_06oh3"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_qyyhf"]
+[ext_resource type="SpriteFrames" uid="uid://cq75eyvl5gaq3" path="res://Sprites/player_test_anims.tres" id="1_sdpk8"]
+[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyIdle.gd" id="3_6gcud"]
+[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyActive.gd" id="4_0f8ba"]
+[ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="4_c0k8c"]
+[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyDying.gd" id="6_7s6b8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uji4u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lu5yq"]
+radius = 6.0
+
+[node name="Enemy" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_uji4u")
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp = 1.0
+script = ExtResource("1_qyyhf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+sprite_frames = ExtResource("1_sdpk8")
+animation = &"die"
+frame = 1
+frame_progress = 0.123585
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lu5yq")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
+script = ExtResource("1_06oh3")
+initialState = NodePath("idle")
+
+[node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim")]
+script = ExtResource("3_6gcud")
+anim = NodePath("../../AnimatedSprite2D")
+
+[node name="active" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim")]
+script = ExtResource("4_0f8ba")
+enemy = NodePath("../..")
+anim = NodePath("../../AnimatedSprite2D")
+
+[node name="dying" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim", "col")]
+script = ExtResource("6_7s6b8")
+enemy = NodePath("../..")
+anim = NodePath("../../AnimatedSprite2D")
+col = NodePath("../../CollisionShape2D")
+
+[node name="Timer" type="Timer" parent="StateMachine/dying"]
+wait_time = 0.5
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_c0k8c")]
+max_health = 3
+cur_health = 3
+
+[connection signal="timeout" from="StateMachine/dying/Timer" to="StateMachine/dying" method="_on_timer_timeout"]
+[connection signal="on_damage" from="HealthComponent" to="StateMachine/active" method="_on_health_component_on_damage"]
+[connection signal="on_zero" from="HealthComponent" to="StateMachine/active" method="_on_health_component_on_zero"]

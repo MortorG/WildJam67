@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://dp4mvujgd35sx"]
+[gd_scene load_steps=3 format=3 uid="uid://dp4mvujgd35sx"]
 
 [ext_resource type="PackedScene" uid="uid://006kxed2ooro" path="res://Scenes/player.tscn" id="1_wwee3"]
+[ext_resource type="PackedScene" uid="uid://d26gqycn8pjv" path="res://Scenes/basic_enemy.tscn" id="2_qan1b"]
 
 [node name="Game" type="Node2D"]
+position = Vector2(1, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_wwee3")]
+position = Vector2(379, 182.5)
+
+[node name="Enemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_qan1b")]
+position = Vector2(277, 119)
+player = NodePath("../Player")
+
+[node name="Enemy2" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_qan1b")]
+position = Vector2(303.5, 169.5)
+player = NodePath("../Player")
+
+[node name="Enemy3" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_qan1b")]
+position = Vector2(354.5, 145)
+player = NodePath("../Player")

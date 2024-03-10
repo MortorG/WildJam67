@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c12nt5dkpto6n"]
 
-[ext_resource type="Script" path="res://Scripts/Player/Projectile.gd" id="1_0212p"]
+[ext_resource type="Script" path="res://Scripts/Player/Attacks/Projectile.gd" id="1_m11hy"]
 [ext_resource type="Texture2D" uid="uid://b22set32o7xfv" path="res://Sprites/projectile.png" id="1_u6my2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gd8pb"]
@@ -16,8 +16,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Node2D" type="Area2D"]
-script = ExtResource("1_0212p")
+[node name="Projectile" type="Area2D"]
+script = ExtResource("1_m11hy")
 speed = 200.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -29,4 +29,5 @@ sprite_frames = SubResource("SpriteFrames_fr4gu")
 
 [node name="Timer" type="Timer" parent="."]
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

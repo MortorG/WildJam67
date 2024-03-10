@@ -1,68 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://006kxed2ooro"]
+[gd_scene load_steps=11 format=3 uid="uid://006kxed2ooro"]
 
-[ext_resource type="Texture2D" uid="uid://cown2u63ehvnq" path="res://Sprites/test.png" id="1_g8k6h"]
+[ext_resource type="SpriteFrames" uid="uid://cq75eyvl5gaq3" path="res://Sprites/player_test_anims.tres" id="1_1ufgv"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="2_03wv5"]
-[ext_resource type="Script" path="res://Scripts/Player/IdleState.gd" id="3_lpl8u"]
-[ext_resource type="Script" path="res://Scripts/Player/MovingState.gd" id="4_s5irc"]
-[ext_resource type="Script" path="res://Scripts/Player/SlashState.gd" id="5_5otrx"]
+[ext_resource type="Script" path="res://Scripts/Player/States/IdleState.gd" id="3_kk5vo"]
+[ext_resource type="Script" path="res://Scripts/Player/States/MovingState.gd" id="4_0loj3"]
+[ext_resource type="Script" path="res://Scripts/Player/States/SlashState.gd" id="5_ix6q7"]
 [ext_resource type="PackedScene" uid="uid://c3txl1it6w24b" path="res://Scenes/slash.tscn" id="6_vyje8"]
-[ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="6_xng8r"]
-[ext_resource type="Script" path="res://Scripts/Player/ShootState.gd" id="7_7k3g0"]
+[ext_resource type="Script" path="res://Scripts/Player/States/ShootState.gd" id="7_tnqmd"]
 [ext_resource type="PackedScene" uid="uid://c12nt5dkpto6n" path="res://Scenes/projectile.tscn" id="8_wgypr"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i2swy"]
-atlas = ExtResource("1_g8k6h")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_34msw"]
-atlas = ExtResource("1_g8k6h")
-region = Rect2(0, 4, 16, 12)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vx8r5"]
-atlas = ExtResource("1_g8k6h")
-region = Rect2(0, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bkxsh"]
-atlas = ExtResource("1_g8k6h")
-region = Rect2(4, 0, 12, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_a7qxu"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_g8k6h")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i2swy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_34msw")
-}],
-"loop": true,
-"name": &"move",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vx8r5")
-}],
-"loop": true,
-"name": &"shoot",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bkxsh")
-}],
-"loop": true,
-"name": &"slash",
-"speed": 4.0
-}]
+[ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="9_o411l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xypcx"]
 radius = 8.0
@@ -72,7 +18,7 @@ position = Vector2(50, 38)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_a7qxu")
+sprite_frames = ExtResource("1_1ufgv")
 animation = &"move"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -83,17 +29,17 @@ script = ExtResource("2_03wv5")
 initialState = NodePath("idle")
 
 [node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim")]
-script = ExtResource("3_lpl8u")
+script = ExtResource("3_kk5vo")
 anim = NodePath("../../AnimatedSprite2D")
 
 [node name="moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "anim")]
-script = ExtResource("4_s5irc")
+script = ExtResource("4_0loj3")
 player = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
 speed = 100.0
 
 [node name="slash" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "slashpos")]
-script = ExtResource("5_5otrx")
+script = ExtResource("5_ix6q7")
 anim = NodePath("../../AnimatedSprite2D")
 slash = ExtResource("6_vyje8")
 slashpos = NodePath("../../SlashPos")
@@ -102,7 +48,7 @@ slashpos = NodePath("../../SlashPos")
 wait_time = 0.25
 
 [node name="shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "shootpos")]
-script = ExtResource("7_7k3g0")
+script = ExtResource("7_tnqmd")
 anim = NodePath("../../AnimatedSprite2D")
 projectile = ExtResource("8_wgypr")
 shootpos = NodePath("../../SlashPos")
@@ -110,8 +56,9 @@ shootpos = NodePath("../../SlashPos")
 [node name="Timer" type="Timer" parent="StateMachine/shoot"]
 wait_time = 0.3
 
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("6_xng8r")
+[node name="HealthComponent" parent="." instance=ExtResource("9_o411l")]
+max_health = 10
+cur_health = 10
 
 [node name="SlashPos" type="Node2D" parent="."]
 position = Vector2(25, 0)
