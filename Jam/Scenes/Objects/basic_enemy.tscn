@@ -59,10 +59,11 @@ accel = 10.0
 script = ExtResource("6_7s6b8")
 enemy = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
-col = NodePath("../../CollisionShape2D")
+col = [NodePath("../../CollisionShape2D"), NodePath("../../ContactDamage/CollisionShape2D"), NodePath("../../Hitbox/CollisionShape2D")]
 
 [node name="Timer" type="Timer" parent="StateMachine/dying"]
 wait_time = 0.5
+one_shot = true
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_c0k8c")]
 max_health = 3
@@ -95,6 +96,5 @@ path_max_distance = 1000.0
 radius = 10.0
 
 [connection signal="timeout" from="StateMachine/dying/Timer" to="StateMachine/dying" method="_on_timer_timeout"]
-[connection signal="on_damage" from="HealthComponent" to="StateMachine/active" method="_on_health_component_on_damage"]
 [connection signal="on_zero" from="HealthComponent" to="StateMachine/active" method="_on_health_component_on_zero"]
 [connection signal="area_entered" from="ContactDamage" to="ContactDamage" method="_on_area_entered"]

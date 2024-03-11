@@ -1,0 +1,120 @@
+[gd_scene load_steps=15 format=3 uid="uid://cgsjimvune12x"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_0nf65"]
+[ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="2_v5q12"]
+[ext_resource type="SpriteFrames" uid="uid://cq75eyvl5gaq3" path="res://Sprites/player_test_anims.tres" id="2_w3opn"]
+[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyIdle.gd" id="3_02c24"]
+[ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_m1ggd"]
+[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyDying.gd" id="4_jtkhw"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Tanky Enemy/TankyEnemyActive.gd" id="5_ju5xy"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Tanky Enemy/TankyEnemyAttacking.gd" id="6_qmopk"]
+[ext_resource type="Script" path="res://Scripts/Enemies/ContactDamage.gd" id="6_veulo"]
+[ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="7_0aonc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_imehu"]
+radius = 17.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o18wa"]
+radius = 17.0
+
+[sub_resource type="Resource" id="Resource_5vx1k"]
+script = ExtResource("7_0aonc")
+damage = 3
+knockback = 1500.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_38b3y"]
+radius = 45.0
+
+[node name="Tanky Enemy" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 193
+script = ExtResource("1_0nf65")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_imehu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_w3opn")
+animation = &"attack"
+frame = 4
+frame_progress = 1.0
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
+script = ExtResource("3_m1ggd")
+initialState = NodePath("idle")
+
+[node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim")]
+script = ExtResource("3_02c24")
+anim = NodePath("../../AnimatedSprite2D")
+
+[node name="active" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim", "nav")]
+script = ExtResource("5_ju5xy")
+enemy = NodePath("../..")
+anim = NodePath("../../AnimatedSprite2D")
+nav = NodePath("../../NavigationAgent2D")
+speed = 60.0
+accel = 20.0
+attackDistance = 40.0
+
+[node name="attacking" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "attack_hitbox")]
+script = ExtResource("6_qmopk")
+anim = NodePath("../../AnimatedSprite2D")
+attack_hitbox = NodePath("../../ContactDamage/CollisionShape2D")
+
+[node name="Buildup" type="Timer" parent="StateMachine/attacking"]
+one_shot = true
+
+[node name="AttackDuration" type="Timer" parent="StateMachine/attacking"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Endlag" type="Timer" parent="StateMachine/attacking"]
+one_shot = true
+
+[node name="dying" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim", "col", "timers")]
+script = ExtResource("4_jtkhw")
+enemy = NodePath("../..")
+anim = NodePath("../../AnimatedSprite2D")
+col = [NodePath("../../Hitbox/CollisionShape2D"), NodePath("../../ContactDamage/CollisionShape2D"), NodePath("../../CollisionShape2D")]
+timers = [NodePath("../attacking/Buildup"), NodePath("../attacking/AttackDuration"), NodePath("../attacking/Endlag")]
+
+[node name="Timer" type="Timer" parent="StateMachine/dying"]
+wait_time = 0.5
+one_shot = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_v5q12")]
+max_health = 10
+cur_health = 10
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 20.0
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_o18wa")
+
+[node name="ContactDamage" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("6_veulo")
+attack_properties = SubResource("Resource_5vx1k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactDamage"]
+shape = SubResource("CircleShape2D_38b3y")
+disabled = true
+
+[connection signal="timeout" from="StateMachine/attacking/Buildup" to="StateMachine/attacking" method="_on_buildup_timeout"]
+[connection signal="timeout" from="StateMachine/attacking/AttackDuration" to="StateMachine/attacking" method="_on_attack_duration_timeout"]
+[connection signal="timeout" from="StateMachine/attacking/Endlag" to="StateMachine/attacking" method="_on_endlag_timeout"]
+[connection signal="timeout" from="StateMachine/dying/Timer" to="StateMachine/dying" method="_on_timer_timeout"]
+[connection signal="on_zero" from="HealthComponent" to="StateMachine/active" method="_on_health_component_on_zero"]
+[connection signal="on_zero" from="HealthComponent" to="StateMachine/attacking" method="_on_health_component_on_zero"]
+[connection signal="area_entered" from="ContactDamage" to="ContactDamage" method="_on_area_entered"]
