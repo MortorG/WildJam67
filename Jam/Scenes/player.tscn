@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://006kxed2ooro"]
+[gd_scene load_steps=13 format=3 uid="uid://006kxed2ooro"]
 
 [ext_resource type="SpriteFrames" uid="uid://cq75eyvl5gaq3" path="res://Sprites/player_test_anims.tres" id="1_1ufgv"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="2_03wv5"]
@@ -9,12 +9,18 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/ShootState.gd" id="7_tnqmd"]
 [ext_resource type="PackedScene" uid="uid://c12nt5dkpto6n" path="res://Scenes/projectile.tscn" id="8_wgypr"]
 [ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="9_o411l"]
+[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="10_s3o1r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xypcx"]
 radius = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ldpy"]
+radius = 8.5
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(50, 38)
+collision_layer = 2
+collision_mask = 192
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -45,7 +51,7 @@ slash = ExtResource("6_vyje8")
 slashpos = NodePath("../../SlashPos")
 
 [node name="Timer" type="Timer" parent="StateMachine/slash"]
-wait_time = 0.25
+wait_time = 0.15
 
 [node name="shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "shootpos")]
 script = ExtResource("7_tnqmd")
@@ -54,14 +60,24 @@ projectile = ExtResource("8_wgypr")
 shootpos = NodePath("../../SlashPos")
 
 [node name="Timer" type="Timer" parent="StateMachine/shoot"]
-wait_time = 0.3
+wait_time = 0.2
+
+[node name="SlashPos" type="Node2D" parent="."]
+position = Vector2(25, 0)
 
 [node name="HealthComponent" parent="." instance=ExtResource("9_o411l")]
 max_health = 10
 cur_health = 10
 
-[node name="SlashPos" type="Node2D" parent="."]
-position = Vector2(25, 0)
+[node name="KnockbackComponent" parent="." instance=ExtResource("10_s3o1r")]
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_8ldpy")
 
 [connection signal="timeout" from="StateMachine/slash/Timer" to="StateMachine/slash" method="_on_timer_timeout"]
 [connection signal="timeout" from="StateMachine/shoot/Timer" to="StateMachine/shoot" method="_on_timer_timeout"]

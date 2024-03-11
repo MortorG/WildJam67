@@ -11,6 +11,7 @@ func enter():
 	get_parent().get_parent().get_parent().add_child(s)
 	s.position = shootpos.global_position
 	s.rotation = shootpos.global_rotation
+	s.set_meta("creator", owner)
 	
 func _on_timer_timeout():
 	transition.emit(self, "idle")

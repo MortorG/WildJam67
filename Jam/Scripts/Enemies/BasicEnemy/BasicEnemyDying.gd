@@ -7,7 +7,7 @@ extends State
 func enter():
 	anim.play("die")
 	col.set_deferred("disabled", true)
-	enemy.linear_velocity = Vector2.ZERO
+	enemy.velocity = Vector2.ZERO
 	$Timer.start()
 
 func die():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d26gqycn8pjv"]
+[gd_scene load_steps=15 format=3 uid="uid://d26gqycn8pjv"]
 
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="1_06oh3"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_qyyhf"]
@@ -7,28 +7,35 @@
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyActive.gd" id="4_0f8ba"]
 [ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="4_c0k8c"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyDying.gd" id="6_7s6b8"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uji4u"]
+[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="8_wy6l3"]
+[ext_resource type="Script" path="res://Scripts/Enemies/ContactDamage.gd" id="9_tgack"]
+[ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="10_onfjo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lu5yq"]
 radius = 6.0
 
-[node name="Enemy" type="RigidBody2D"]
-physics_material_override = SubResource("PhysicsMaterial_uji4u")
-gravity_scale = 0.0
-lock_rotation = true
-linear_damp = 1.0
+[sub_resource type="Resource" id="Resource_0veo5"]
+script = ExtResource("10_onfjo")
+damage = 1
+knockback = 1500.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_akwxj"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t2esa"]
+radius = 6.0
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_mask = 193
 script = ExtResource("1_qyyhf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lu5yq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.75, 0.75)
 sprite_frames = ExtResource("1_sdpk8")
-animation = &"die"
-frame = 1
-frame_progress = 0.123585
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_lu5yq")
+animation = &"idle"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
 script = ExtResource("1_06oh3")
@@ -38,10 +45,13 @@ initialState = NodePath("idle")
 script = ExtResource("3_6gcud")
 anim = NodePath("../../AnimatedSprite2D")
 
-[node name="active" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim")]
+[node name="active" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim", "nav")]
 script = ExtResource("4_0f8ba")
 enemy = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
+nav = NodePath("../../NavigationAgent2D")
+speed = 60.0
+accel = 20.0
 
 [node name="dying" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim", "col")]
 script = ExtResource("6_7s6b8")
@@ -56,6 +66,32 @@ wait_time = 0.5
 max_health = 3
 cur_health = 3
 
+[node name="KnockbackComponent" parent="." instance=ExtResource("8_wy6l3")]
+
+[node name="ContactDamage" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("9_tgack")
+attack_properties = SubResource("Resource_0veo5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactDamage"]
+shape = SubResource("CircleShape2D_akwxj")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_t2esa")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 1000.0
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 10.0
+
 [connection signal="timeout" from="StateMachine/dying/Timer" to="StateMachine/dying" method="_on_timer_timeout"]
 [connection signal="on_damage" from="HealthComponent" to="StateMachine/active" method="_on_health_component_on_damage"]
 [connection signal="on_zero" from="HealthComponent" to="StateMachine/active" method="_on_health_component_on_zero"]
+[connection signal="area_entered" from="ContactDamage" to="ContactDamage" method="_on_area_entered"]

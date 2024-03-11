@@ -1,10 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://dp4mvujgd35sx"]
+[gd_scene load_steps=6 format=3 uid="uid://dp4mvujgd35sx"]
 
 [ext_resource type="PackedScene" uid="uid://006kxed2ooro" path="res://Scenes/player.tscn" id="1_wwee3"]
 [ext_resource type="PackedScene" uid="uid://d26gqycn8pjv" path="res://Scenes/basic_enemy.tscn" id="2_qan1b"]
 
-[node name="Game" type="Node2D"]
-position = Vector2(1, 0)
+[sub_resource type="Environment" id="Environment_vnfyw"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_wl0ai"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_wfgnk"]
+vertices = PackedVector2Array(632, 350, 9, 350, 9, 9, 632, 9)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(642, -1, 642, 360, -1, 361, -1, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Game" type="WorldEnvironment"]
+environment = SubResource("Environment_vnfyw")
+camera_attributes = SubResource("CameraAttributesPractical_wl0ai")
 
 [node name="Player" parent="." instance=ExtResource("1_wwee3")]
 position = Vector2(379, 182.5)
@@ -20,3 +31,6 @@ player = NodePath("../Player")
 [node name="Enemy3" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_qan1b")]
 position = Vector2(354.5, 145)
 player = NodePath("../Player")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_wfgnk")

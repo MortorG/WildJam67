@@ -1,7 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://c12nt5dkpto6n"]
+[gd_scene load_steps=7 format=3 uid="uid://c12nt5dkpto6n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Attacks/Projectile.gd" id="1_m11hy"]
 [ext_resource type="Texture2D" uid="uid://b22set32o7xfv" path="res://Sprites/projectile.png" id="1_u6my2"]
+[ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="2_kwq7s"]
+
+[sub_resource type="Resource" id="Resource_uaqii"]
+script = ExtResource("2_kwq7s")
+damage = 1
+knockback = 600.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gd8pb"]
 
@@ -17,8 +23,12 @@ animations = [{
 }]
 
 [node name="Projectile" type="Area2D"]
+collision_layer = 0
+collision_mask = 72
+monitorable = false
 script = ExtResource("1_m11hy")
 speed = 200.0
+attack_properties = SubResource("Resource_uaqii")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_gd8pb")
@@ -29,5 +39,6 @@ sprite_frames = SubResource("SpriteFrames_fr4gu")
 
 [node name="Timer" type="Timer" parent="."]
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
