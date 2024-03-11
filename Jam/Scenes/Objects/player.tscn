@@ -5,9 +5,9 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/IdleState.gd" id="3_kk5vo"]
 [ext_resource type="Script" path="res://Scripts/Player/States/MovingState.gd" id="4_0loj3"]
 [ext_resource type="Script" path="res://Scripts/Player/States/SlashState.gd" id="5_ix6q7"]
-[ext_resource type="PackedScene" uid="uid://c3txl1it6w24b" path="res://Scenes/slash.tscn" id="6_vyje8"]
+[ext_resource type="PackedScene" uid="uid://c3txl1it6w24b" path="res://Scenes/Objects/slash.tscn" id="6_vyje8"]
 [ext_resource type="Script" path="res://Scripts/Player/States/ShootState.gd" id="7_tnqmd"]
-[ext_resource type="PackedScene" uid="uid://c12nt5dkpto6n" path="res://Scenes/projectile.tscn" id="8_wgypr"]
+[ext_resource type="PackedScene" uid="uid://c12nt5dkpto6n" path="res://Scenes/Objects/projectile.tscn" id="8_wgypr"]
 [ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="9_o411l"]
 [ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="10_s3o1r"]
 

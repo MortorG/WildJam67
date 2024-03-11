@@ -21,5 +21,5 @@ func _on_area_entered(area):
 		knockback.knock_back(Vector2.RIGHT.rotated(rotation), attack_properties.knockback)
 	self.queue_free()
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	self.queue_free()

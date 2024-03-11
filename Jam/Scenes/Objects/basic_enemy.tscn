@@ -73,6 +73,7 @@ cur_health = 3
 [node name="ContactDamage" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
+monitorable = false
 script = ExtResource("9_tgack")
 attack_properties = SubResource("Resource_0veo5")
 
