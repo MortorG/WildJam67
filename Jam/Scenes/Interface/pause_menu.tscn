@@ -1,0 +1,125 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccg5qqnkmwon0"]
+
+[ext_resource type="Script" path="res://Scripts/Interface/PauseMenu.gd" id="1_t1isg"]
+[ext_resource type="Theme" uid="uid://tsxweyrh2p8p" path="res://Resources/main_ui_theme.tres" id="2_pjaxh"]
+[ext_resource type="PackedScene" uid="uid://cycvmhfxfa1cr" path="res://Scenes/Interface/options_submenu.tscn" id="3_fpffe"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.301961)
+script = ExtResource("1_t1isg")
+
+[node name="Header" type="Label" parent="Background"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.0
+offset_top = 32.0
+offset_right = 96.0
+offset_bottom = 67.0
+grow_horizontal = 2
+theme = ExtResource("2_pjaxh")
+text = "Pause"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Border-bottom" type="ColorRect" parent="Background/Header"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Border-left" type="ColorRect" parent="Background/Header"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 29.0
+offset_right = 2.0
+grow_vertical = 2
+
+[node name="Border-right" type="ColorRect" parent="Background/Header"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 28.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Continue" type="Button" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -52.0
+offset_right = 64.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_pjaxh")
+text = "Continue"
+
+[node name="Options" type="Button" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 4.0
+offset_right = 64.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_pjaxh")
+text = "Options"
+
+[node name="Quit" type="Button" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 60.0
+offset_right = 64.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_pjaxh")
+text = "To main menu"
+
+[node name="Options" parent="." instance=ExtResource("3_fpffe")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="Background/Continue" to="Background" method="_on_continue_pressed"]
+[connection signal="pressed" from="Background/Options" to="Background" method="_on_options_pressed"]
+[connection signal="pressed" from="Background/Quit" to="Background" method="_on_quit_pressed"]
