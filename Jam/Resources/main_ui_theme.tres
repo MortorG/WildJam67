@@ -1,0 +1,44 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://tsxweyrh2p8p"]
+
+[ext_resource type="FontFile" uid="uid://dhe42jroq5i1e" path="res://Resources/PixelifySans-Regular.ttf" id="1_4asxh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fem0q"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.313726, 0.313726, 0.313726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_47j1r"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.858824, 0.784314, 0.67451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmeow"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b48y0"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.972549, 0.752941, 0.196078, 1)
+
+[resource]
+Button/font_sizes/font_size = 18
+Button/fonts/font = ExtResource("1_4asxh")
+Button/styles/disabled = SubResource("StyleBoxFlat_fem0q")
+Button/styles/hover = SubResource("StyleBoxFlat_47j1r")
+Button/styles/normal = SubResource("StyleBoxFlat_cmeow")
+Button/styles/pressed = SubResource("StyleBoxFlat_b48y0")
+Label/font_sizes/font_size = 18
+Label/fonts/font = ExtResource("1_4asxh")

@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/IdleState.gd" id="3_lpl8u"]
 [ext_resource type="Script" path="res://Scripts/Player/MovingState.gd" id="4_s5irc"]
 [ext_resource type="Script" path="res://Scripts/Player/SlashState.gd" id="5_5otrx"]
-[ext_resource type="PackedScene" uid="uid://c3txl1it6w24b" path="res://Scenes/slash.tscn" id="6_vyje8"]
+[ext_resource type="PackedScene" uid="uid://c3txl1it6w24b" path="res://Scenes/Objects/slash.tscn" id="6_vyje8"]
 [ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="6_xng8r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i2swy"]
