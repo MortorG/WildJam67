@@ -7,9 +7,10 @@
 [sub_resource type="Resource" id="Resource_2mkxu"]
 script = ExtResource("2_3jc5n")
 damage = 1
-knockback = 2000.0
+knockback = 400.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucuxr"]
+size = Vector2(30, 30)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7e168"]
 animations = [{

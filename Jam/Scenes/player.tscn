@@ -21,6 +21,8 @@ radius = 8.5
 position = Vector2(50, 38)
 collision_layer = 2
 collision_mask = 192
+platform_on_leave = 2
+platform_floor_layers = 4294901760
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -34,27 +36,31 @@ shape = SubResource("CircleShape2D_xypcx")
 script = ExtResource("2_03wv5")
 initialState = NodePath("idle")
 
-[node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim")]
+[node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "player")]
 script = ExtResource("3_kk5vo")
 anim = NodePath("../../AnimatedSprite2D")
+player = NodePath("../..")
 
 [node name="moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "anim")]
 script = ExtResource("4_0loj3")
 player = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
-speed = 100.0
+speed = 120.0
+accel = 15.0
 
-[node name="slash" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "slashpos")]
+[node name="slash" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "anim", "slashpos")]
 script = ExtResource("5_ix6q7")
+player = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
 slash = ExtResource("6_vyje8")
 slashpos = NodePath("../../SlashPos")
 
 [node name="Timer" type="Timer" parent="StateMachine/slash"]
-wait_time = 0.15
+wait_time = 0.25
 
-[node name="shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "shootpos")]
+[node name="shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "anim", "shootpos")]
 script = ExtResource("7_tnqmd")
+player = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
 projectile = ExtResource("8_wgypr")
 shootpos = NodePath("../../SlashPos")
