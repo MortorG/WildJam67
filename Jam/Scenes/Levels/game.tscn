@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dp4mvujgd35sx"]
 
 [ext_resource type="PackedScene" uid="uid://006kxed2ooro" path="res://Scenes/Objects/player.tscn" id="1_kduee"]
-[ext_resource type="PackedScene" uid="uid://cgsjimvune12x" path="res://Scenes/Objects/tanky_enemy.tscn" id="3_ejgy5"]
+[ext_resource type="PackedScene" uid="uid://d26gqycn8pjv" path="res://Scenes/Objects/basic_enemy.tscn" id="2_ttavf"]
 
 [sub_resource type="Environment" id="Environment_vnfyw"]
 
@@ -20,9 +20,28 @@ camera_attributes = SubResource("CameraAttributesPractical_wl0ai")
 [node name="Player" parent="." instance=ExtResource("1_kduee")]
 position = Vector2(379, 182.5)
 
-[node name="Tanky Enemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_ejgy5")]
-position = Vector2(127, 80)
-player = NodePath("../Player")
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_wfgnk")
+
+[node name="Enemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_ttavf")]
+player = NodePath("../Player")
+
+[node name="Enemy2" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_ttavf")]
+position = Vector2(29, 129)
+player = NodePath("../Player")
+
+[node name="Enemy3" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_ttavf")]
+position = Vector2(163, 19)
+player = NodePath("../Player")
+
+[node name="Enemy4" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_ttavf")]
+position = Vector2(114, 61)
+player = NodePath("../Player")
+
+[node name="Enemy5" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_ttavf")]
+position = Vector2(44, 244)
+player = NodePath("../Player")
+
+[node name="Enemy6" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_ttavf")]
+position = Vector2(120, 334)
+player = NodePath("../Player")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://cgsjimvune12x"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_0nf65"]
+[ext_resource type="SpriteFrames" uid="uid://c06eh048tp2qf" path="res://Sprites/tanky_enemy_anims.tres" id="2_kjs6g"]
 [ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="2_v5q12"]
-[ext_resource type="SpriteFrames" uid="uid://cq75eyvl5gaq3" path="res://Sprites/player_test_anims.tres" id="2_w3opn"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyIdle.gd" id="3_02c24"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_m1ggd"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyDying.gd" id="4_jtkhw"]
@@ -35,10 +35,8 @@ shape = SubResource("CircleShape2D_imehu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
-sprite_frames = ExtResource("2_w3opn")
-animation = &"attack"
-frame = 4
-frame_progress = 1.0
+sprite_frames = ExtResource("2_kjs6g")
+animation = &"die"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
 script = ExtResource("3_m1ggd")

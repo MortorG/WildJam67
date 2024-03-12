@@ -1,25 +1,105 @@
-[gd_scene load_steps=7 format=3 uid="uid://c12nt5dkpto6n"]
+[gd_scene load_steps=18 format=3 uid="uid://c12nt5dkpto6n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Attacks/Projectile.gd" id="1_m11hy"]
-[ext_resource type="Texture2D" uid="uid://b22set32o7xfv" path="res://Sprites/projectile.png" id="1_u6my2"]
 [ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="2_kwq7s"]
+[ext_resource type="Texture2D" uid="uid://cllfefh323k24" path="res://Sprites/parasite_attack_32x32.png" id="3_a0isq"]
 
 [sub_resource type="Resource" id="Resource_uaqii"]
 script = ExtResource("2_kwq7s")
 damage = 1
 knockback = 300.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gd8pb"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_e12a2"]
+radius = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thlab"]
+atlas = ExtResource("3_a0isq")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmgqo"]
+atlas = ExtResource("3_a0isq")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8s8s"]
+atlas = ExtResource("3_a0isq")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ojc1"]
+atlas = ExtResource("3_a0isq")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ugmo"]
+atlas = ExtResource("3_a0isq")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isshu"]
+atlas = ExtResource("3_a0isq")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kpoi"]
+atlas = ExtResource("3_a0isq")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oejat"]
+atlas = ExtResource("3_a0isq")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5owr"]
+atlas = ExtResource("3_a0isq")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpfw2"]
+atlas = ExtResource("3_a0isq")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28kne"]
+atlas = ExtResource("3_a0isq")
+region = Rect2(128, 64, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fr4gu"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_u6my2")
+"texture": SubResource("AtlasTexture_thlab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmgqo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8s8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ojc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ugmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isshu")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2kpoi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oejat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5owr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpfw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28kne")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 8.0
 }]
 
 [node name="Projectile" type="Area2D"]
@@ -27,17 +107,19 @@ collision_layer = 0
 collision_mask = 72
 monitorable = false
 script = ExtResource("1_m11hy")
-speed = 200.0
+speed = 150.0
 attack_properties = SubResource("Resource_uaqii")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_gd8pb")
+shape = SubResource("CircleShape2D_e12a2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_fr4gu")
+autoplay = "default"
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

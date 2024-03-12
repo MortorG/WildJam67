@@ -17,7 +17,7 @@ func physics_update(delta):
 	
 	enemy.velocity = enemy.velocity.lerp(move_dir * speed, accel * delta)
 	
-	enemy.look_at(move_dir + enemy.global_position)
+	#enemy.look_at(move_dir + enemy.global_position)
 	enemy.move_and_slide()
 
 func die():
