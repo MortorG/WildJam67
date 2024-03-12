@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://006kxed2ooro"]
 
-[ext_resource type="SpriteFrames" uid="uid://cq75eyvl5gaq3" path="res://Sprites/player_test_anims.tres" id="1_1ufgv"]
+[ext_resource type="SpriteFrames" uid="uid://cq75eyvl5gaq3" path="res://Sprites/player_anims.tres" id="1_ptufu"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="2_03wv5"]
 [ext_resource type="Script" path="res://Scripts/Player/States/IdleState.gd" id="3_kk5vo"]
 [ext_resource type="Script" path="res://Scripts/Player/States/MovingState.gd" id="4_0loj3"]
@@ -12,13 +12,12 @@
 [ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="10_s3o1r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xypcx"]
-radius = 8.0
+radius = 6.96972
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ldpy"]
-radius = 8.5
+radius = 14.0
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(50, 38)
 collision_layer = 2
 collision_mask = 192
 platform_on_leave = 2
@@ -26,10 +25,16 @@ platform_floor_layers = 4294901760
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = ExtResource("1_1ufgv")
-animation = &"move"
+rotation = -1.5708
+sprite_frames = ExtResource("1_ptufu")
+animation = &"shoot"
+autoplay = "idle"
+frame = 5
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 0)
+scale = Vector2(2.00869, 1.43848)
 shape = SubResource("CircleShape2D_xypcx")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
@@ -55,7 +60,7 @@ anim = NodePath("../../AnimatedSprite2D")
 slash = ExtResource("6_vyje8")
 slashpos = NodePath("../../SlashPos")
 
-[node name="Timer" type="Timer" parent="StateMachine/slash"]
+[node name="AttackDelayTimer" type="Timer" parent="StateMachine/slash"]
 wait_time = 0.25
 one_shot = true
 
@@ -64,14 +69,17 @@ script = ExtResource("7_tnqmd")
 player = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
 projectile = ExtResource("8_wgypr")
-shootpos = NodePath("../../SlashPos")
+shootpos = NodePath("../../ShootPos")
 
-[node name="Timer" type="Timer" parent="StateMachine/shoot"]
-wait_time = 0.2
+[node name="ShootDelayTimer" type="Timer" parent="StateMachine/shoot"]
+wait_time = 0.3
 one_shot = true
 
 [node name="SlashPos" type="Node2D" parent="."]
-position = Vector2(25, 0)
+position = Vector2(32, 0)
+
+[node name="ShootPos" type="Node2D" parent="."]
+position = Vector2(28, 0)
 
 [node name="HealthComponent" parent="." instance=ExtResource("9_o411l")]
 max_health = 10
@@ -85,7 +93,9 @@ collision_mask = 0
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(3, 0)
+scale = Vector2(1, 0.72)
 shape = SubResource("CircleShape2D_8ldpy")
 
-[connection signal="timeout" from="StateMachine/slash/Timer" to="StateMachine/slash" method="_on_timer_timeout"]
-[connection signal="timeout" from="StateMachine/shoot/Timer" to="StateMachine/shoot" method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/slash/AttackDelayTimer" to="StateMachine/slash" method="_on_attack_delay_timer_timeout"]
+[connection signal="timeout" from="StateMachine/shoot/ShootDelayTimer" to="StateMachine/shoot" method="_on_shoot_delay_timer_timeout"]

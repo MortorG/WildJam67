@@ -1,22 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3txl1it6w24b"]
+[gd_scene load_steps=8 format=3 uid="uid://c3txl1it6w24b"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Attacks/Slash.gd" id="1_3y27o"]
 [ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="2_3jc5n"]
-[ext_resource type="Texture2D" uid="uid://d0mecp4sln6av" path="res://Sprites/slash.png" id="2_ighhw"]
+[ext_resource type="Texture2D" uid="uid://cllfefh323k24" path="res://Sprites/parasite_attack_32x32.png" id="3_23c4y"]
 
 [sub_resource type="Resource" id="Resource_2mkxu"]
 script = ExtResource("2_3jc5n")
 damage = 1
 knockback = 400.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucuxr"]
-size = Vector2(30, 30)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8bpr"]
+size = Vector2(34.6864, 36.7287)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tbj1"]
+atlas = ExtResource("3_23c4y")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7e168"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_ighhw")
+"texture": SubResource("AtlasTexture_6tbj1")
 }],
 "loop": true,
 "name": &"default",
@@ -31,14 +35,15 @@ script = ExtResource("1_3y27o")
 attack_properties = SubResource("Resource_2mkxu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_ucuxr")
+position = Vector2(0, -7.15256e-07)
+scale = Vector2(0.922553, 0.762346)
+shape = SubResource("RectangleShape2D_x8bpr")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.15
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_7e168")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="1_06oh3"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_qyyhf"]
-[ext_resource type="SpriteFrames" uid="uid://cq75eyvl5gaq3" path="res://Sprites/player_test_anims.tres" id="1_sdpk8"]
+[ext_resource type="SpriteFrames" uid="uid://bn68yq2bbjlje" path="res://Sprites/basic_enemy_anims.tres" id="2_y8vc8"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyIdle.gd" id="3_6gcud"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyActive.gd" id="4_0f8ba"]
 [ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="4_c0k8c"]
@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="10_onfjo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lu5yq"]
-radius = 6.0
+radius = 14.0
 
 [sub_resource type="Resource" id="Resource_0veo5"]
 script = ExtResource("10_onfjo")
@@ -20,12 +20,13 @@ damage = 1
 knockback = 800.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_akwxj"]
-radius = 7.0
+radius = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t2esa"]
-radius = 6.0
+radius = 14.0
 
 [node name="Enemy" type="CharacterBody2D"]
+position = Vector2(16, 16)
 collision_mask = 193
 platform_on_leave = 2
 platform_floor_layers = 4294901760
@@ -35,9 +36,12 @@ script = ExtResource("1_qyyhf")
 shape = SubResource("CircleShape2D_lu5yq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.75, 0.75)
-sprite_frames = ExtResource("1_sdpk8")
-animation = &"idle"
+position = Vector2(4.17233e-07, -4.17233e-07)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("2_y8vc8")
+animation = &"die"
+autoplay = "move"
+frame_progress = 0.371393
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
 script = ExtResource("1_06oh3")
@@ -93,7 +97,7 @@ shape = SubResource("CircleShape2D_t2esa")
 path_max_distance = 1000.0
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-radius = 10.0
+radius = 24.0
 
 [connection signal="timeout" from="StateMachine/dying/Timer" to="StateMachine/dying" method="_on_timer_timeout"]
 [connection signal="on_zero" from="HealthComponent" to="StateMachine/active" method="_on_health_component_on_zero"]
