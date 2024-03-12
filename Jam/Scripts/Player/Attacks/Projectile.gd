@@ -8,9 +8,7 @@ var velocity: Vector2 = Vector2.ZERO
 
 func _ready():
 	$Timer.start()
-	# no sprite rotation
 	velocity = Vector2.RIGHT.rotated(rotation)
-	rotation = 0
 
 func play_hit_animation():
 	velocity = Vector2.ZERO
