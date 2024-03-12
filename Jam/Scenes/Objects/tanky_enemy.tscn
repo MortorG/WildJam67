@@ -12,10 +12,10 @@
 [ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="7_0aonc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_imehu"]
-radius = 17.0
+radius = 19.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o18wa"]
-radius = 17.0
+radius = 20.025
 
 [sub_resource type="Resource" id="Resource_5vx1k"]
 script = ExtResource("7_0aonc")
@@ -23,20 +23,21 @@ damage = 3
 knockback = 1500.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_38b3y"]
-radius = 45.0
+radius = 38.0
 
 [node name="Tanky Enemy" type="CharacterBody2D"]
 collision_layer = 3
 collision_mask = 193
 script = ExtResource("1_0nf65")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_imehu")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("2_kjs6g")
-animation = &"die"
+animation = &"endattack"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_imehu")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
 script = ExtResource("3_m1ggd")
@@ -64,10 +65,10 @@ attack_hitbox = NodePath("../../ContactDamage/CollisionShape2D")
 one_shot = true
 
 [node name="AttackDuration" type="Timer" parent="StateMachine/attacking"]
-wait_time = 0.1
 one_shot = true
 
 [node name="Endlag" type="Timer" parent="StateMachine/attacking"]
+wait_time = 0.4
 one_shot = true
 
 [node name="dying" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim", "col", "timers")]
@@ -88,9 +89,10 @@ cur_health = 10
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-radius = 20.0
+radius = 38.0
 
 [node name="Hitbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 8
 collision_mask = 0
 monitoring = false

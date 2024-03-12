@@ -37,7 +37,6 @@ shape = SubResource("CircleShape2D_lu5yq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(4.17233e-07, -4.17233e-07)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("2_y8vc8")
 animation = &"die"
 autoplay = "move"
