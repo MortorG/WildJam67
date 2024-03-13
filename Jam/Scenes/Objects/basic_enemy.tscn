@@ -1,13 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://d26gqycn8pjv"]
+[gd_scene load_steps=15 format=3 uid="uid://b6xsmn705bcvy"]
 
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="1_06oh3"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_qyyhf"]
-[ext_resource type="SpriteFrames" uid="uid://bn68yq2bbjlje" path="res://Sprites/basic_enemy_anims.tres" id="2_y8vc8"]
+[ext_resource type="SpriteFrames" uid="uid://dhy8shai6l4ss" path="res://Sprites/basic_enemy_anims.tres" id="2_y8vc8"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyIdle.gd" id="3_6gcud"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyActive.gd" id="4_0f8ba"]
-[ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="4_c0k8c"]
+[ext_resource type="PackedScene" path="res://Scenes/health_component.tscn" id="4_c0k8c"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyDying.gd" id="6_7s6b8"]
-[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="8_wy6l3"]
+[ext_resource type="PackedScene" path="res://Scenes/knockback_component.tscn" id="8_wy6l3"]
 [ext_resource type="Script" path="res://Scripts/Enemies/ContactDamage.gd" id="9_tgack"]
 [ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="10_onfjo"]
 

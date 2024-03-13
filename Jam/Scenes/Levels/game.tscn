@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dp4mvujgd35sx"]
+[gd_scene load_steps=8 format=3 uid="uid://dp4mvujgd35sx"]
 
 [ext_resource type="PackedScene" uid="uid://006kxed2ooro" path="res://Scenes/Objects/player.tscn" id="1_kduee"]
-[ext_resource type="PackedScene" uid="uid://d26gqycn8pjv" path="res://Scenes/Objects/basic_enemy.tscn" id="2_ttavf"]
-[ext_resource type="PackedScene" uid="uid://cgsjimvune12x" path="res://Scenes/Objects/tanky_enemy.tscn" id="3_2lfc8"]
+[ext_resource type="PackedScene" uid="uid://b6xsmn705bcvy" path="res://Scenes/Objects/basic_enemy.tscn" id="2_ttavf"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/tanky_enemy.tscn" id="3_2lfc8"]
+[ext_resource type="PackedScene" uid="uid://cj1kcan1vleuv" path="res://Scenes/Interface/game_canvas.tscn" id="4_cdern"]
 
 [sub_resource type="Environment" id="Environment_vnfyw"]
 
@@ -41,3 +42,5 @@ player = NodePath("../Player")
 
 [node name="Tanky Enemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_2lfc8")]
 player = NodePath("../Player")
+
+[node name="CanvasLayer" parent="." instance=ExtResource("4_cdern")]
