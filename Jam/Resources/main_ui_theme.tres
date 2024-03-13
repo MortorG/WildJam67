@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://tsxweyrh2p8p"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://tsxweyrh2p8p"]
 
 [ext_resource type="FontFile" uid="uid://dhe42jroq5i1e" path="res://Resources/PixelifySans-Regular.ttf" id="1_4asxh"]
 
@@ -33,6 +33,27 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.972549, 0.752941, 0.196078, 1)
 
+[sub_resource type="ImageTexture" id="ImageTexture_uw7cy"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_2n2ir"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_s01ub"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6c4tb"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x01lx"]
+bg_color = Color(0.988235, 0.913725, 0.764706, 1)
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_465ac"]
+bg_color = Color(0.32549, 0.32549, 0.32549, 1)
+expand_margin_top = 3.0
+expand_margin_bottom = 3.0
+
 [resource]
 Button/font_sizes/font_size = 18
 Button/fonts/font = ExtResource("1_4asxh")
@@ -40,5 +61,11 @@ Button/styles/disabled = SubResource("StyleBoxFlat_fem0q")
 Button/styles/hover = SubResource("StyleBoxFlat_47j1r")
 Button/styles/normal = SubResource("StyleBoxFlat_cmeow")
 Button/styles/pressed = SubResource("StyleBoxFlat_b48y0")
+HSlider/icons/grabber = SubResource("ImageTexture_uw7cy")
+HSlider/icons/grabber_disabled = SubResource("ImageTexture_2n2ir")
+HSlider/icons/grabber_highlight = SubResource("ImageTexture_s01ub")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_6c4tb")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_x01lx")
+HSlider/styles/slider = SubResource("StyleBoxFlat_465ac")
 Label/font_sizes/font_size = 18
 Label/fonts/font = ExtResource("1_4asxh")
