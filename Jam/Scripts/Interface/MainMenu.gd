@@ -2,7 +2,7 @@ extends MenuBase
 
 
 func _on_start_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Levels/game.tscn")
+	G.levels.change_level(Enums.Levels.tutorial)
 
 
 func _on_options_pressed():

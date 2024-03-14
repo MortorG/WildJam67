@@ -1,15 +1,15 @@
 [gd_scene load_steps=13 format=3 uid="uid://006kxed2ooro"]
 
-[ext_resource type="SpriteFrames" uid="uid://cq75eyvl5gaq3" path="res://Sprites/player_anims.tres" id="1_ptufu"]
+[ext_resource type="SpriteFrames" uid="uid://b8v1uc1lt22h" path="res://Sprites/player_anims.tres" id="1_ptufu"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="2_03wv5"]
 [ext_resource type="Script" path="res://Scripts/Player/States/IdleState.gd" id="3_kk5vo"]
 [ext_resource type="Script" path="res://Scripts/Player/States/MovingState.gd" id="4_0loj3"]
 [ext_resource type="Script" path="res://Scripts/Player/States/SlashState.gd" id="5_ix6q7"]
 [ext_resource type="PackedScene" uid="uid://c3txl1it6w24b" path="res://Scenes/Objects/slash.tscn" id="6_vyje8"]
 [ext_resource type="Script" path="res://Scripts/Player/States/ShootState.gd" id="7_tnqmd"]
-[ext_resource type="PackedScene" uid="uid://c12nt5dkpto6n" path="res://Scenes/Objects/projectile.tscn" id="8_wgypr"]
-[ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="9_o411l"]
-[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="10_s3o1r"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/projectile.tscn" id="8_wgypr"]
+[ext_resource type="PackedScene" path="res://Scenes/health_component.tscn" id="9_o411l"]
+[ext_resource type="PackedScene" path="res://Scenes/knockback_component.tscn" id="10_s3o1r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xypcx"]
 radius = 6.96972
