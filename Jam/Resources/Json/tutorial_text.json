@@ -1,64 +1,28 @@
 {
-	"0": {
-		"time": 1,
-		"text": ""
-	},
 	"1": {
-		"time": 3,
 		"text": "You have successfully got into human body"
 	},
-	"2": {
-		"time": 1,
-		"text": ""
-	},
 	"3": {
-		"time": 4,
 		"text": "Now you need to move to the brain and defeat it"
 	},
-	"3.5": {
-		"time": 1,
-		"text": ""
-	},
 	"4": {
-		"time": 3,
 		"text": "I will teach you how to do it"
 	},
-	"4.5": {
-		"time": 1,
-		"text": ""
-	},
 	"5": {
-		"time": 2,
 		"text": "Press WASD to move"
 	},
-	"5.5": {
-		"time": 1,
-		"text": ""
-	},
 	"6": {
-		"time": 2,
 		"text": "Press J to slash"
 	},
-	"6.5": {
-		"time": 1,
-		"text": ""
-	},
 	"7": {
-		"time": 2,
 		"text": "Press K to shoot"
 	},
-	"8": {
-		"time": 1,
-		"text": ""
-	},
 	"9": {
-		"time": 2,
 		"text": "Here is your first enemy",
 		"spawn": "1"
 	},
 	
 	"10": {
-		"time": 4,
 		"text": "Defeat it and you may move forward"
 	},
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://vp1sts16qfxq"]
+[gd_scene load_steps=18 format=3 uid="uid://vp1sts16qfxq"]
 
 [ext_resource type="PackedScene" uid="uid://006kxed2ooro" path="res://Scenes/Objects/player.tscn" id="1_f6ire"]
 [ext_resource type="Texture2D" uid="uid://deqos0owr6out" path="res://Sprites/base_tiles_32x32.png" id="2_n32gh"]
@@ -120,6 +120,9 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(642, -1, 642, 360, -1, 361, -1, 0)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
+[sub_resource type="LabelSettings" id="LabelSettings_yhlql"]
+font_size = 12
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_0bqf0"]
 radius = 29.0
 
@@ -166,17 +169,36 @@ navigation_polygon = SubResource("NavigationPolygon_wfgnk")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -314.0
+offset_left = -363.0
 offset_top = 33.0
 offset_right = -33.0
-offset_bottom = 103.0
+offset_bottom = 56.0
 grow_horizontal = 0
 theme = ExtResource("4_es54c")
-text = "t"
 horizontal_alignment = 2
 script = ExtResource("5_tj1ga")
 
+[node name="Label" type="Label" parent="Tutorial Text"]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = 11.5
+offset_right = -1.0
+offset_bottom = 34.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("4_es54c")
+text = "Press space to continue"
+label_settings = SubResource("LabelSettings_yhlql")
+
 [node name="Timer" type="Timer" parent="Tutorial Text"]
+wait_time = 0.5
+autostart = true
 
 [node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 position = Vector2(515, 180)
