@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccg5qqnkmwon0"]
+[gd_scene load_steps=5 format=3 uid="uid://ccg5qqnkmwon0"]
 
 [ext_resource type="Script" path="res://Scripts/Interface/PauseMenu.gd" id="1_t1isg"]
 [ext_resource type="Theme" uid="uid://tsxweyrh2p8p" path="res://Resources/main_ui_theme.tres" id="2_pjaxh"]
 [ext_resource type="PackedScene" uid="uid://cycvmhfxfa1cr" path="res://Scenes/Interface/options_submenu.tscn" id="3_fpffe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o3tb8"]
+font_size = 15
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -116,10 +119,93 @@ grow_vertical = 2
 theme = ExtResource("2_pjaxh")
 text = "To main menu"
 
+[node name="Confirm" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -148.0
+offset_right = 192.0
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Header" type="Label" parent="Confirm"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.0
+offset_top = 32.0
+offset_right = 96.0
+offset_bottom = 67.0
+grow_horizontal = 2
+theme = ExtResource("2_pjaxh")
+text = "Are you sure?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="Confirm"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.0
+offset_top = 96.0
+offset_right = 103.0
+offset_bottom = 131.0
+grow_horizontal = 2
+theme = ExtResource("2_pjaxh")
+text = "All your data will be lost"
+label_settings = SubResource("LabelSettings_o3tb8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="Confirm"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 24.0
+offset_right = 64.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_pjaxh")
+text = "Back"
+
+[node name="Quit" type="Button" parent="Confirm"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 72.0
+offset_right = 64.0
+offset_bottom = 103.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_pjaxh")
+text = "I'm sure"
+
 [node name="Options" parent="." instance=ExtResource("3_fpffe")]
 visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="Background/Continue" to="Background" method="_on_continue_pressed"]
 [connection signal="pressed" from="Background/Options" to="Background" method="_on_options_pressed"]
-[connection signal="pressed" from="Background/Quit" to="Background" method="_on_quit_pressed"]
+[connection signal="pressed" from="Background/Quit" to="Background" method="_on_try_quit_pressed"]
+[connection signal="pressed" from="Confirm/Back" to="Background" method="_on_back_pressed"]
+[connection signal="pressed" from="Confirm/Quit" to="Background" method="_on_quit_pressed"]

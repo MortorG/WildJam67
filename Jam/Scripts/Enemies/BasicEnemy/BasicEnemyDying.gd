@@ -15,6 +15,7 @@ func enter():
 	$Timer.start()
 
 func die():
+	enemy.die.emit()
 	enemy.queue_free()
 
 func _on_timer_timeout():

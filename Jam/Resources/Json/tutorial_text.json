@@ -1,0 +1,28 @@
+{
+	"1": {
+		"text": "You have successfully got into human body"
+	},
+	"3": {
+		"text": "Now you need to move to the brain and defeat it"
+	},
+	"4": {
+		"text": "I will teach you how to do it"
+	},
+	"5": {
+		"text": "Press WASD to move"
+	},
+	"6": {
+		"text": "Press J to slash"
+	},
+	"7": {
+		"text": "Press K to shoot"
+	},
+	"9": {
+		"text": "Here is your first enemy",
+		"spawn": "1"
+	},
+	
+	"10": {
+		"text": "Defeat it and you may move forward"
+	},
+}
