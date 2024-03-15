@@ -13,7 +13,6 @@ func _on_buildup_timeout():
 	$AttackDuration.start()
 
 func _on_attack_duration_timeout():
-	anim.play("endattack")
 	attack_hitbox.set_deferred("disabled", true)
 	$Endlag.start()
 

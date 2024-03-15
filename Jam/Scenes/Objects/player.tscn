@@ -7,12 +7,12 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/SlashState.gd" id="5_ix6q7"]
 [ext_resource type="PackedScene" uid="uid://c3txl1it6w24b" path="res://Scenes/Objects/slash.tscn" id="6_vyje8"]
 [ext_resource type="Script" path="res://Scripts/Player/States/ShootState.gd" id="7_tnqmd"]
-[ext_resource type="PackedScene" path="res://Scenes/Objects/projectile.tscn" id="8_wgypr"]
-[ext_resource type="PackedScene" path="res://Scenes/health_component.tscn" id="9_o411l"]
-[ext_resource type="PackedScene" path="res://Scenes/knockback_component.tscn" id="10_s3o1r"]
+[ext_resource type="PackedScene" uid="uid://c12nt5dkpto6n" path="res://Scenes/Objects/projectile.tscn" id="8_wgypr"]
+[ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="9_o411l"]
+[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="10_s3o1r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xypcx"]
-radius = 6.96972
+radius = 11.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ldpy"]
 radius = 14.0
@@ -27,14 +27,11 @@ platform_floor_layers = 4294901760
 texture_filter = 1
 rotation = -1.5708
 sprite_frames = ExtResource("1_ptufu")
-animation = &"shoot"
+animation = &"die"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 0)
-scale = Vector2(2.00869, 1.43848)
 shape = SubResource("CircleShape2D_xypcx")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://006kxed2ooro" path="res://Scenes/Objects/player.tscn" id="1_g2546"]
 [ext_resource type="Texture2D" uid="uid://deqos0owr6out" path="res://Sprites/base_tiles_32x32.png" id="2_lioh2"]
 [ext_resource type="PackedScene" uid="uid://b6xsmn705bcvy" path="res://Scenes/Objects/basic_enemy.tscn" id="3_crngc"]
-[ext_resource type="PackedScene" path="res://Scenes/Objects/tanky_enemy.tscn" id="4_cdyk4"]
+[ext_resource type="PackedScene" uid="uid://cgsjimvune12x" path="res://Scenes/Objects/tanky_enemy.tscn" id="4_cdyk4"]
 [ext_resource type="PackedScene" uid="uid://cj1kcan1vleuv" path="res://Scenes/Interface/game_canvas.tscn" id="5_y7f5d"]
 
 [sub_resource type="Environment" id="Environment_vnfyw"]

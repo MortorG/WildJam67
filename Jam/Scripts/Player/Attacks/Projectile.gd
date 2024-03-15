@@ -13,6 +13,7 @@ func _ready():
 func play_hit_animation():
 	velocity = Vector2.ZERO
 	anim.play("hit")
+	$CollisionShape2D.set_deferred("disabled", true)
 	await anim.animation_finished
 	self.queue_free()
 
