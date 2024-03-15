@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cgsjimvune12x"]
+[gd_scene load_steps=16 format=3 uid="uid://cgsjimvune12x"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_0nf65"]
 [ext_resource type="SpriteFrames" uid="uid://by0mmp0hh2qn5" path="res://Sprites/tanky_enemy_anims.tres" id="2_kjs6g"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/Enemies/Tanky Enemy/TankyEnemyAttacking.gd" id="6_qmopk"]
 [ext_resource type="Script" path="res://Scripts/Enemies/ContactDamage.gd" id="6_veulo"]
 [ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="7_0aonc"]
+[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="9_iuvv5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_imehu"]
 radius = 19.0
@@ -52,9 +53,9 @@ script = ExtResource("5_ju5xy")
 enemy = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
 nav = NodePath("../../NavigationAgent2D")
-speed = 60.0
+speed = 40.0
 accel = 20.0
-attackDistance = 40.0
+attackDistance = 45.0
 
 [node name="attacking" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "attack_hitbox")]
 script = ExtResource("6_qmopk")
@@ -69,14 +70,13 @@ wait_time = 0.4
 one_shot = true
 
 [node name="Endlag" type="Timer" parent="StateMachine/attacking"]
-wait_time = 0.7
+wait_time = 0.5
 one_shot = true
 
-[node name="dying" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim", "col", "timers")]
+[node name="dying" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim", "timers")]
 script = ExtResource("4_jtkhw")
 enemy = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
-col = [NodePath("../../Hitbox/CollisionShape2D"), NodePath("../../ContactDamage/CollisionShape2D"), NodePath("../../CollisionShape2D")]
 timers = [NodePath("../attacking/Buildup"), NodePath("../attacking/AttackDuration"), NodePath("../attacking/Endlag")]
 
 [node name="Timer" type="Timer" parent="StateMachine/dying"]
@@ -86,6 +86,9 @@ one_shot = true
 [node name="HealthComponent" parent="." instance=ExtResource("2_v5q12")]
 max_health = 10
 cur_health = 10
+
+[node name="KnockbackComponent" parent="." instance=ExtResource("9_iuvv5")]
+knockback_effect = 0.2
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
