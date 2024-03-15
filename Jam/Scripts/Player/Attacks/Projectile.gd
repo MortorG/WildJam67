@@ -34,5 +34,3 @@ func _on_area_entered(area):
 
 func _on_body_entered(_body):
 	play_hit_animation()
-
-

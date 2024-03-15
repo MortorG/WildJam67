@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=30 format=3 uid="uid://b8v1uc1lt22h"]
+[gd_resource type="SpriteFrames" load_steps=29 format=3 uid="uid://b8v1uc1lt22h"]
 
 [ext_resource type="Texture2D" uid="uid://cown2u63ehvnq" path="res://Sprites/test.png" id="1_r5ekp"]
 [ext_resource type="Texture2D" uid="uid://ckf8m07wwqnfn" path="res://Sprites/parasite_48x48.png" id="2_bpw0d"]
@@ -107,10 +107,6 @@ region = Rect2(96, 48, 48, 48)
 atlas = ExtResource("2_bpw0d")
 region = Rect2(144, 48, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2j0cu"]
-atlas = ExtResource("2_bpw0d")
-region = Rect2(192, 48, 48, 48)
-
 [resource]
 animations = [{
 "frames": [{
@@ -213,9 +209,9 @@ animations = [{
 "texture": SubResource("AtlasTexture_y3l4h")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2j0cu")
+"texture": SubResource("AtlasTexture_y3l4h")
 }],
 "loop": false,
 "name": &"slash",
-"speed": 10.0
+"speed": 12.0
 }]
