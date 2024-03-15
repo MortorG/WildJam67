@@ -1,7 +1,12 @@
 extends Node
 
 @export var sprite : CanvasItem
+@export var time_between_blink : float
+
 var blink : bool = true
+
+func _ready():
+	$Blink_time.set_wait_time(time_between_blink)
 
 func start_blink():
 	blink = true

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b85x1jctrkx1c"]
+
+[ext_resource type="Script" path="res://Scripts/BlinkingComponent.gd" id="1_fcsfx"]
+
+[node name="BlinkingComponent" type="Node"]
+script = ExtResource("1_fcsfx")
+time_between_blink = 0.05
+
+[node name="Blink_time" type="Timer" parent="."]
+wait_time = 0.05
+
+[connection signal="timeout" from="Blink_time" to="." method="_blink"]

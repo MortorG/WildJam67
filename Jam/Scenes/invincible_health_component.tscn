@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dofw2roguhfoc"]
+
+[ext_resource type="Script" path="res://Scripts/InvincibleHealthComponent.gd" id="1_u1ydr"]
+
+[node name="InvincibleHealthComponent" type="Node"]
+script = ExtResource("1_u1ydr")
+
+[node name="Invincible_duration" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="on_damage" from="." to="." method="invincible_start"]
+[connection signal="timeout" from="Invincible_duration" to="." method="_on_invincible_duration_timeout"]

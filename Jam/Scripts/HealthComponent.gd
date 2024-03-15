@@ -28,7 +28,7 @@ func damage(amount : int):
 		on_damage.emit(prev, cur_health, max_health)
 		if cur_health == 0:
 			on_zero.emit(prev, cur_health, max_health)
-		print(cur_health)
+	print(cur_health)
 
 func heal(amount : int):
 	var prev = cur_health

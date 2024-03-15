@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Unlocks" load_steps=2 format=3 uid="uid://qmmva4j1vte5"]
+
+[ext_resource type="Script" path="res://Scripts/unlocks.gd" id="1_j3182"]
+
+[resource]
+script = ExtResource("1_j3182")
+can_shoot = true

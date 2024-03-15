@@ -1,10 +1,11 @@
 extends Node
 
 var levels: LevelsLoader
-
+var unlocks: Unlocks
 
 func _ready():
 	levels = LevelsLoader.new(get_tree())
+	unlocks = load("res://Resources/unlocks.tres")
 
 
 func _notification(what):

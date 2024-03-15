@@ -1,9 +1,13 @@
 extends HealthComponent
 
 @export var hitboxes : Array[CollisionShape2D]
+@export var invencibility_duration : float = 1
 
 signal on_invincible_start
 signal on_invincible_end
+
+func _ready():
+	$Invincible_duration.set_wait_time(invencibility_duration)
 
 func _process(delta):
 	pass
