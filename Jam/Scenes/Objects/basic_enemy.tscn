@@ -58,11 +58,10 @@ nav = NodePath("../../NavigationAgent2D")
 speed = 60.0
 accel = 10.0
 
-[node name="dying" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim", "col")]
+[node name="dying" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim")]
 script = ExtResource("6_7s6b8")
 enemy = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
-col = [NodePath("../../CollisionShape2D"), NodePath("../../ContactDamage/CollisionShape2D"), NodePath("../../Hitbox/CollisionShape2D")]
 
 [node name="Timer" type="Timer" parent="StateMachine/dying"]
 wait_time = 0.5

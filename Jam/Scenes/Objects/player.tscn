@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://006kxed2ooro"]
+[gd_scene load_steps=15 format=3 uid="uid://006kxed2ooro"]
 
 [ext_resource type="SpriteFrames" uid="uid://b8v1uc1lt22h" path="res://Sprites/player_anims.tres" id="1_ptufu"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="2_03wv5"]
@@ -9,7 +9,9 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/ShootState.gd" id="7_tnqmd"]
 [ext_resource type="PackedScene" uid="uid://c12nt5dkpto6n" path="res://Scenes/Objects/projectile.tscn" id="8_wgypr"]
 [ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="9_o411l"]
+[ext_resource type="Script" path="res://Scripts/InvincibleHealthComponent.gd" id="10_cmp5e"]
 [ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="10_s3o1r"]
+[ext_resource type="Script" path="res://Scripts/BlinkingComponent.gd" id="12_is0sy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xypcx"]
 radius = 11.0
@@ -78,9 +80,13 @@ position = Vector2(32, 0)
 [node name="ShootPos" type="Node2D" parent="."]
 position = Vector2(28, 0)
 
-[node name="HealthComponent" parent="." instance=ExtResource("9_o411l")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("hitboxes") instance=ExtResource("9_o411l")]
+script = ExtResource("10_cmp5e")
+hitboxes = [NodePath("../Hitbox/CollisionShape2D")]
 max_health = 10
 cur_health = 10
+
+[node name="Invincible_duration" type="Timer" parent="HealthComponent"]
 
 [node name="KnockbackComponent" parent="." instance=ExtResource("10_s3o1r")]
 
@@ -94,5 +100,17 @@ position = Vector2(3, 0)
 scale = Vector2(1, 0.72)
 shape = SubResource("CircleShape2D_8ldpy")
 
+[node name="BlinkingComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("12_is0sy")
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="Blink_time" type="Timer" parent="BlinkingComponent"]
+wait_time = 0.05
+
 [connection signal="timeout" from="StateMachine/slash/AttackDelayTimer" to="StateMachine/slash" method="_on_attack_delay_timer_timeout"]
 [connection signal="timeout" from="StateMachine/shoot/ShootDelayTimer" to="StateMachine/shoot" method="_on_shoot_delay_timer_timeout"]
+[connection signal="on_damage" from="HealthComponent" to="HealthComponent" method="invincible_start"]
+[connection signal="on_invincible_end" from="HealthComponent" to="BlinkingComponent" method="end_blink"]
+[connection signal="on_invincible_start" from="HealthComponent" to="BlinkingComponent" method="start_blink"]
+[connection signal="timeout" from="HealthComponent/Invincible_duration" to="HealthComponent" method="_on_invincible_duration_timeout"]
+[connection signal="timeout" from="BlinkingComponent/Blink_time" to="BlinkingComponent" method="_blink"]
