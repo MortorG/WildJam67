@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://crwuy2yefygig"]
+
+[ext_resource type="Script" path="res://Scripts/Sounds/BackgroundMusic.gd" id="1_r5i78"]
+
+[node name="BackgroundMusic" type="Node"]
+script = ExtResource("1_r5i78")
+
+[node name="Intro" type="AudioStreamPlayer" parent="."]
+
+[node name="MainLoop" type="AudioStreamPlayer" parent="."]
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+
+[connection signal="finished" from="Intro" to="." method="_on_intro_finished"]

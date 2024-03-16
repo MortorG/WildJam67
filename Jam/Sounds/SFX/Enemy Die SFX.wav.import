@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://do4qxhp4mw556"
+path="res://.godot/imported/Enemy Die SFX.wav-fa6bb34e58cdc29c58aa9b2d779ef336.sample"
+
+[deps]
+
+source_file="res://Sounds/SFX/Enemy Die SFX.wav"
+dest_files=["res://.godot/imported/Enemy Die SFX.wav-fa6bb34e58cdc29c58aa9b2d779ef336.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

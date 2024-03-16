@@ -11,6 +11,7 @@ func _ready():
 func start_blink():
 	blink = true
 	$Blink_time.start()
+	
 func end_blink():
 	sprite.self_modulate.a = 1.0
 	$Blink_time.stop()

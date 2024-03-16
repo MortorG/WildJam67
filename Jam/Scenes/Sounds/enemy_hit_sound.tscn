@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bihww75lxk504"]
+
+[ext_resource type="AudioStream" uid="uid://5o0rcbdtpn3c" path="res://Sounds/SFX/Enemy Hit SFX.wav" id="1_030g6"]
+[ext_resource type="Script" path="res://Scripts/Sounds/EnemyHitSound.gd" id="2_jyra4"]
+
+[node name="EnemyHitSound" type="AudioStreamPlayer"]
+stream = ExtResource("1_030g6")
+autoplay = true
+script = ExtResource("2_jyra4")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
