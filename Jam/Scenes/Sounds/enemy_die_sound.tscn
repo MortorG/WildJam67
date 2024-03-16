@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://tllhxjti1du6"]
+
+[ext_resource type="AudioStream" uid="uid://do4qxhp4mw556" path="res://Sounds/SFX/Enemy Die SFX.wav" id="1_gouds"]
+[ext_resource type="Script" path="res://Scripts/Sounds/EnemyHitSound.gd" id="2_5m11t"]
+
+[node name="EnemyHitSound" type="AudioStreamPlayer"]
+stream = ExtResource("1_gouds")
+volume_db = -20.0
+autoplay = true
+script = ExtResource("2_5m11t")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
