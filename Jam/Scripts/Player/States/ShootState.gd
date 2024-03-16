@@ -4,8 +4,9 @@ extends State
 @export var anim : AnimatedSprite2D
 @export var projectile : PackedScene
 @export var shootpos : Node2D
+@export var sound_player: Node2D
 
-func enter():	
+func enter():
 	player.velocity = Vector2.ZERO
 	anim.play("shoot")
 	$ShootDelayTimer.start()
@@ -13,6 +14,8 @@ func enter():
 	transition.emit(self, "idle")
 
 func _on_shoot_delay_timer_timeout():
+	sound_player.play_sound("shoot")
+	
 	var s : Area2D = projectile.instantiate()
 	s.position = shootpos.global_position
 	s.rotation = shootpos.global_rotation

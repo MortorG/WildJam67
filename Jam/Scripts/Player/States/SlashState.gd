@@ -4,6 +4,7 @@ extends State
 @export var anim : AnimatedSprite2D
 @export var slash : PackedScene
 @export var slashpos : Node2D
+@export var sound_player: SoundsPlayer
 
 var is_right_arm = true
 
@@ -21,6 +22,8 @@ func exit():
 	is_right_arm = !is_right_arm
 
 func _on_attack_delay_timer_timeout():
+	sound_player.play_sound("slash")
+	
 	var s : Area2D = slash.instantiate()
 	get_parent().get_parent().get_parent().add_child(s)
 	s.position = slashpos.global_position

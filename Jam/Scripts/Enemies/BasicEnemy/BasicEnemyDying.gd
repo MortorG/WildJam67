@@ -6,6 +6,8 @@ extends State
 @export var timers : Array[Timer]
 
 func enter():
+	GS.play_enemy_die_sound()
+	
 	anim.play("die")
 	for item in hitboxes:
 		item.set_deferred("disabled", true)
