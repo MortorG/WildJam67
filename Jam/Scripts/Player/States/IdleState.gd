@@ -1,4 +1,4 @@
-extends State
+extends Alive_State
 
 @export var anim : AnimatedSprite2D
 @export var player : CharacterBody2D

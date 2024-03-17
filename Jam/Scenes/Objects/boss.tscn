@@ -279,7 +279,9 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_qrnp5")
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-radius = 24.0
+position = Vector2(-1, 0)
+radius = 70.0
+vertices = PackedVector2Array(75, -75, 75, 75, -75, 75, -75, -75)
 
 [node name="BlinkingComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("8_4abd7")]
 sprite = NodePath("../AnimatedSprite2D")

@@ -1,4 +1,4 @@
-extends Boss_Alive_State
+extends Alive_State
 
 @export var anim : AnimatedSprite2D
 @export var summon_scene : PackedScene

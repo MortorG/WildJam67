@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://006kxed2ooro"]
+[gd_scene load_steps=22 format=3 uid="uid://006kxed2ooro"]
 
 [ext_resource type="SpriteFrames" uid="uid://b8v1uc1lt22h" path="res://Sprites/player_anims.tres" id="1_ptufu"]
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_w80ao"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/SoundPlayer.gd" id="10_ftboo"]
 [ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="10_s3o1r"]
 [ext_resource type="PackedScene" uid="uid://dofw2roguhfoc" path="res://Scenes/invincible_health_component.tscn" id="10_upiir"]
+[ext_resource type="Script" path="res://Scripts/Player/States/dyingstate.gd" id="11_teei1"]
 [ext_resource type="AudioStream" uid="uid://cvqpwyf6ay4iq" path="res://Sounds/SFX/Player Shot SFX.wav" id="11_u14qj"]
 [ext_resource type="PackedScene" uid="uid://b85x1jctrkx1c" path="res://Scenes/blinking_component.tscn" id="12_xpw8x"]
 [ext_resource type="AudioStream" uid="uid://bcs158l5rpwmj" path="res://Sounds/SFX/Player Hit SFX.wav" id="13_hxurw"]
@@ -87,6 +88,17 @@ sound_player = NodePath("../../PlayerSounds")
 wait_time = 0.3
 one_shot = true
 
+[node name="dying" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "hitboxes", "timers", "sounds_player")]
+script = ExtResource("11_teei1")
+anim = NodePath("../../AnimatedSprite2D")
+hitboxes = [NodePath("../../Hitbox/CollisionShape2D")]
+timers = [NodePath("../slash/AttackDelayTimer"), NodePath("../shoot/ShootDelayTimer")]
+sounds_player = NodePath("../../PlayerSounds")
+
+[node name="GameOverTime" type="Timer" parent="StateMachine/dying"]
+wait_time = 2.0
+one_shot = true
+
 [node name="PlayerSounds" type="Node2D" parent="."]
 script = ExtResource("10_ftboo")
 
@@ -130,7 +142,11 @@ sprite = NodePath("../AnimatedSprite2D")
 
 [connection signal="timeout" from="StateMachine/slash/AttackDelayTimer" to="StateMachine/slash" method="_on_attack_delay_timer_timeout"]
 [connection signal="timeout" from="StateMachine/shoot/ShootDelayTimer" to="StateMachine/shoot" method="_on_shoot_delay_timer_timeout"]
+[connection signal="timeout" from="StateMachine/dying/GameOverTime" to="StateMachine/dying" method="_on_game_over_time_timeout"]
 [connection signal="on_damage" from="HealthComponent" to="." method="_on_health_component_on_damage"]
 [connection signal="on_invincible_end" from="HealthComponent" to="BlinkingComponent" method="end_blink"]
 [connection signal="on_invincible_start" from="HealthComponent" to="BlinkingComponent" method="start_blink"]
-[connection signal="on_zero" from="HealthComponent" to="." method="_on_health_component_on_zero"]
+[connection signal="on_zero" from="HealthComponent" to="StateMachine/idle" method="die"]
+[connection signal="on_zero" from="HealthComponent" to="StateMachine/moving" method="die"]
+[connection signal="on_zero" from="HealthComponent" to="StateMachine/slash" method="die"]
+[connection signal="on_zero" from="HealthComponent" to="StateMachine/shoot" method="die"]

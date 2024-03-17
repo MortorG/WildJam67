@@ -93,9 +93,9 @@ shape = SubResource("CircleShape2D_t2esa")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_max_distance = 1000.0
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-radius = 14.48
+avoidance_enabled = true
+radius = 15.0
+max_speed = 60.0
 
 [connection signal="timeout" from="StateMachine/dying/Timer" to="StateMachine/dying" method="_on_timer_timeout"]
 [connection signal="on_zero" from="HealthComponent" to="StateMachine/active" method="_on_health_component_on_zero"]
