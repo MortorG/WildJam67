@@ -5,6 +5,8 @@ extends State
 @export var hitboxes : Array[CollisionShape2D]
 @export var timers : Array[Timer]
 
+signal enemy_died
+
 func enter():
 	GS.play_enemy_die_sound()
 	

@@ -2,6 +2,7 @@ extends Node
 
 @export var sprite : CanvasItem
 @export var time_between_blink : float
+@export var blink_opacity : float = 0.5
 
 var blink : bool = true
 
@@ -18,7 +19,7 @@ func end_blink():
 
 func _blink():
 	if blink:
-		sprite.self_modulate.a = 0.5
+		sprite.self_modulate.a = blink_opacity
 	else:
 		sprite.self_modulate.a = 1.0
 	blink = !blink

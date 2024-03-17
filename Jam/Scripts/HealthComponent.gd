@@ -25,7 +25,8 @@ func damage(amount : int):
 		cur_health = clamp(cur_health, 0, max_health)
 			
 		on_health_change.emit(prev, cur_health, max_health)
-		on_damage.emit(prev, cur_health, max_health)
+		if cur_health > 0:
+			on_damage.emit(prev, cur_health, max_health)
 		if cur_health == 0:
 			on_zero.emit(prev, cur_health, max_health)
 	print(cur_health)

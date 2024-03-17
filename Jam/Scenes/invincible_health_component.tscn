@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/InvincibleHealthComponent.gd" id="1_u1ydr"]
 
-[node name="InvincibleHealthComponent" type="Node"]
+[node name="HealthComponent" type="Node"]
 script = ExtResource("1_u1ydr")
 
 [node name="Invincible_duration" type="Timer" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3txl1it6w24b"]
+[gd_scene load_steps=9 format=3 uid="uid://c3txl1it6w24b"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Attacks/Slash.gd" id="1_3y27o"]
 [ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="2_3jc5n"]
@@ -9,8 +9,13 @@ script = ExtResource("2_3jc5n")
 damage = 1
 knockback = 400.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8bpr"]
-size = Vector2(34.6864, 36.7287)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mlim6"]
+radius = 16.2592
+height = 41.9757
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2fim1"]
+radius = 10.8395
+height = 55.0931
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6tbj1"]
 atlas = ExtResource("3_23c4y")
@@ -35,9 +40,14 @@ script = ExtResource("1_3y27o")
 attack_properties = SubResource("Resource_2mkxu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7.15256e-07)
+position = Vector2(3, 0)
 scale = Vector2(0.922553, 0.762346)
-shape = SubResource("RectangleShape2D_x8bpr")
+shape = SubResource("CapsuleShape2D_mlim6")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-7, 0)
+scale = Vector2(0.922553, 0.762346)
+shape = SubResource("CapsuleShape2D_2fim1")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.15

@@ -1,21 +1,21 @@
-[gd_scene load_steps=15 format=3 uid="uid://b6xsmn705bcvy"]
+[gd_scene load_steps=15 format=3 uid="uid://d1vt3vf1xchbc"]
 
-[ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="1_06oh3"]
-[ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_qyyhf"]
-[ext_resource type="SpriteFrames" uid="uid://dhy8shai6l4ss" path="res://Sprites/basic_enemy_anims.tres" id="2_y8vc8"]
-[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyIdle.gd" id="3_6gcud"]
-[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyActive.gd" id="4_0f8ba"]
-[ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="4_c0k8c"]
-[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyDying.gd" id="6_7s6b8"]
-[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="8_wy6l3"]
-[ext_resource type="Script" path="res://Scripts/Enemies/ContactDamage.gd" id="9_tgack"]
-[ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="10_onfjo"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_3jmwg"]
+[ext_resource type="SpriteFrames" uid="uid://w44ihvr2pms6" path="res://Sprites/brain_cell_anims.tres" id="2_b2syr"]
+[ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_shki1"]
+[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyIdle.gd" id="4_t623q"]
+[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyActive.gd" id="5_ny0hy"]
+[ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyDying.gd" id="6_otuu7"]
+[ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="7_k4ya7"]
+[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="8_0m0ar"]
+[ext_resource type="Script" path="res://Scripts/Enemies/ContactDamage.gd" id="9_gh8tt"]
+[ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="10_rt6u4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lu5yq"]
 radius = 14.0
 
 [sub_resource type="Resource" id="Resource_0veo5"]
-script = ExtResource("10_onfjo")
+script = ExtResource("10_rt6u4")
 damage = 1
 knockback = 800.0
 
@@ -30,36 +30,35 @@ position = Vector2(16, 16)
 collision_mask = 193
 platform_on_leave = 2
 platform_floor_layers = 4294901760
-script = ExtResource("1_qyyhf")
+script = ExtResource("1_3jmwg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_lu5yq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(4.17233e-07, -4.17233e-07)
-sprite_frames = ExtResource("2_y8vc8")
-animation = &"die"
+sprite_frames = ExtResource("2_b2syr")
+animation = &"move"
 autoplay = "move"
-frame_progress = 0.371393
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
-script = ExtResource("1_06oh3")
+script = ExtResource("3_shki1")
 initialState = NodePath("idle")
 
 [node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim")]
-script = ExtResource("3_6gcud")
+script = ExtResource("4_t623q")
 anim = NodePath("../../AnimatedSprite2D")
 
 [node name="active" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim", "nav")]
-script = ExtResource("4_0f8ba")
+script = ExtResource("5_ny0hy")
 enemy = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
 nav = NodePath("../../NavigationAgent2D")
-speed = 60.0
-accel = 10.0
+speed = 50.0
+accel = 8.0
 
 [node name="dying" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "anim", "hitboxes")]
-script = ExtResource("6_7s6b8")
+script = ExtResource("6_otuu7")
 enemy = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
 hitboxes = [NodePath("../../ContactDamage/CollisionShape2D"), NodePath("../../Hitbox/CollisionShape2D")]
@@ -68,17 +67,17 @@ hitboxes = [NodePath("../../ContactDamage/CollisionShape2D"), NodePath("../../Hi
 wait_time = 0.5
 one_shot = true
 
-[node name="HealthComponent" parent="." instance=ExtResource("4_c0k8c")]
-max_health = 3
-cur_health = 3
+[node name="HealthComponent" parent="." instance=ExtResource("7_k4ya7")]
+max_health = 1
+cur_health = 1
 
-[node name="KnockbackComponent" parent="." instance=ExtResource("8_wy6l3")]
+[node name="KnockbackComponent" parent="." instance=ExtResource("8_0m0ar")]
 
 [node name="ContactDamage" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
 monitorable = false
-script = ExtResource("9_tgack")
+script = ExtResource("9_gh8tt")
 attack_properties = SubResource("Resource_0veo5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContactDamage"]
@@ -96,7 +95,7 @@ shape = SubResource("CircleShape2D_t2esa")
 path_max_distance = 1000.0
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-radius = 24.0
+radius = 14.48
 
 [connection signal="timeout" from="StateMachine/dying/Timer" to="StateMachine/dying" method="_on_timer_timeout"]
 [connection signal="on_zero" from="HealthComponent" to="StateMachine/active" method="_on_health_component_on_zero"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://vp1sts16qfxq"]
+[gd_scene load_steps=21 format=3 uid="uid://vp1sts16qfxq"]
 
 [ext_resource type="PackedScene" uid="uid://006kxed2ooro" path="res://Scenes/Objects/player.tscn" id="1_f6ire"]
 [ext_resource type="Texture2D" uid="uid://deqos0owr6out" path="res://Sprites/base_tiles_32x32.png" id="2_n32gh"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Enemies/EnemySpawner.gd" id="6_7huf4"]
 [ext_resource type="PackedScene" uid="uid://b6xsmn705bcvy" path="res://Scenes/Objects/basic_enemy.tscn" id="7_i75ie"]
 [ext_resource type="Script" path="res://Scripts/LevelExit.gd" id="8_2hfpo"]
+[ext_resource type="PackedScene" uid="uid://cok73b8ieujcb" path="res://Scenes/Objects/boss.tscn" id="9_2w1uh"]
 
 [sub_resource type="Environment" id="Environment_vnfyw"]
 
@@ -126,6 +127,13 @@ font_size = 12
 [sub_resource type="CircleShape2D" id="CircleShape2D_0bqf0"]
 radius = 29.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_duv2r"]
+radius = 26.0
+height = 70.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uc1mt"]
+size = Vector2(32, 47)
+
 [node name="Game" type="WorldEnvironment"]
 environment = SubResource("Environment_vnfyw")
 camera_attributes = SubResource("CameraAttributesPractical_wl0ai")
@@ -224,6 +232,24 @@ offset_top = -27.0
 offset_right = 27.0
 offset_bottom = 25.0
 color = Color(0.494118, 0.0980392, 0.12549, 0.447059)
+
+[node name="Boss" parent="." node_paths=PackedStringArray("player") instance=ExtResource("9_2w1uh")]
+position = Vector2(306, 90)
+player = NodePath("../Player")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Boss"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boss/StaticBody2D"]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_duv2r")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Boss/StaticBody2D"]
+position = Vector2(-0.5, 35)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_uc1mt")
 
 [connection signal="spawn_enemy" from="Tutorial Text" to="Spawner" method="spawn"]
 [connection signal="spawned" from="Spawner" to="LevelExit" method="enemy_spawned"]
