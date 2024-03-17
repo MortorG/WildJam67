@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccv1g8ihfaeff"]
+
+[ext_resource type="Script" path="res://Scripts/Components/HealthBarComponent.gd" id="1_ri10k"]
+[ext_resource type="PackedScene" uid="uid://bstq1sscbxl31" path="res://Scenes/Interface/health_bar.tscn" id="2_8p2go"]
+
+[node name="HealthBarComponent" type="Node"]
+script = ExtResource("1_ri10k")
+health_bar_prefab = ExtResource("2_8p2go")

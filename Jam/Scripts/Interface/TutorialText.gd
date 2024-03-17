@@ -1,6 +1,5 @@
 extends Label
 
-
 @onready var timer = $Timer
 @onready var next_label = $Label
 

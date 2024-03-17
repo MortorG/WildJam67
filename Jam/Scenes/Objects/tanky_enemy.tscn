@@ -1,16 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://cgsjimvune12x"]
+[gd_scene load_steps=18 format=3 uid="uid://cgsjimvune12x"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_0nf65"]
 [ext_resource type="SpriteFrames" uid="uid://by0mmp0hh2qn5" path="res://Sprites/tanky_enemy_anims.tres" id="2_kjs6g"]
-[ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="2_v5q12"]
+[ext_resource type="PackedScene" uid="uid://dwc2t2wuygjf" path="res://Scenes/Components/health_component.tscn" id="2_v5q12"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyIdle.gd" id="3_02c24"]
-[ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_m1ggd"]
+[ext_resource type="Script" path="res://Scripts/Components/StateMachine.gd" id="3_m1ggd"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyDying.gd" id="4_jtkhw"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Tanky Enemy/TankyEnemyActive.gd" id="5_ju5xy"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Tanky Enemy/TankyEnemyAttacking.gd" id="6_qmopk"]
 [ext_resource type="Script" path="res://Scripts/Enemies/ContactDamage.gd" id="6_veulo"]
 [ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="7_0aonc"]
-[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="9_iuvv5"]
+[ext_resource type="PackedScene" uid="uid://ccv1g8ihfaeff" path="res://Scenes/Components/health_bar_component.tscn" id="9_3ifdc"]
+[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/Components/knockback_component.tscn" id="9_iuvv5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_imehu"]
 radius = 19.0
@@ -31,7 +32,7 @@ script = ExtResource("7_0aonc")
 damage = 3
 knockback = 1500.0
 
-[node name="Tanky Enemy" type="CharacterBody2D"]
+[node name="Tanky Enemy" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 3
 collision_mask = 193
 script = ExtResource("1_0nf65")
@@ -91,6 +92,8 @@ one_shot = true
 [node name="HealthComponent" parent="." instance=ExtResource("2_v5q12")]
 max_health = 10
 cur_health = 10
+
+[node name="HealthBarComponent" parent="." instance=ExtResource("9_3ifdc")]
 
 [node name="KnockbackComponent" parent="." instance=ExtResource("9_iuvv5")]
 knockback_effect = 0.2

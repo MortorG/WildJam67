@@ -1,13 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://b6xsmn705bcvy"]
+[gd_scene load_steps=16 format=3 uid="uid://b6xsmn705bcvy"]
 
-[ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="1_06oh3"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_qyyhf"]
 [ext_resource type="SpriteFrames" uid="uid://dhy8shai6l4ss" path="res://Sprites/basic_enemy_anims.tres" id="2_y8vc8"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyIdle.gd" id="3_6gcud"]
+[ext_resource type="Script" path="res://Scripts/Components/StateMachine.gd" id="3_32evx"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyActive.gd" id="4_0f8ba"]
-[ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="4_c0k8c"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyDying.gd" id="6_7s6b8"]
-[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="8_wy6l3"]
+[ext_resource type="PackedScene" uid="uid://dwc2t2wuygjf" path="res://Scenes/Components/health_component.tscn" id="7_m6hcj"]
+[ext_resource type="PackedScene" uid="uid://ccv1g8ihfaeff" path="res://Scenes/Components/health_bar_component.tscn" id="8_0abhr"]
+[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/Components/knockback_component.tscn" id="8_2ygbw"]
 [ext_resource type="Script" path="res://Scripts/Enemies/ContactDamage.gd" id="9_tgack"]
 [ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="10_onfjo"]
 
@@ -25,7 +26,7 @@ radius = 14.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_t2esa"]
 radius = 14.0
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 position = Vector2(16, 16)
 collision_mask = 193
 platform_on_leave = 2
@@ -43,7 +44,7 @@ autoplay = "move"
 frame_progress = 0.371393
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
-script = ExtResource("1_06oh3")
+script = ExtResource("3_32evx")
 initialState = NodePath("idle")
 
 [node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim")]
@@ -68,11 +69,14 @@ hitboxes = [NodePath("../../ContactDamage/CollisionShape2D"), NodePath("../../Hi
 wait_time = 0.5
 one_shot = true
 
-[node name="HealthComponent" parent="." instance=ExtResource("4_c0k8c")]
+[node name="HealthComponent" parent="." instance=ExtResource("7_m6hcj")]
 max_health = 3
 cur_health = 3
 
-[node name="KnockbackComponent" parent="." instance=ExtResource("8_wy6l3")]
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("8_0abhr")]
+health_component = NodePath("../HealthComponent")
+
+[node name="KnockbackComponent" parent="." instance=ExtResource("8_2ygbw")]
 
 [node name="ContactDamage" type="Area2D" parent="."]
 collision_layer = 0

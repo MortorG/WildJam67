@@ -1,16 +1,17 @@
-[gd_scene load_steps=38 format=3 uid="uid://cok73b8ieujcb"]
+[gd_scene load_steps=39 format=3 uid="uid://cok73b8ieujcb"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_7r1gj"]
 [ext_resource type="Texture2D" uid="uid://osrc0eacjtum" path="res://Sprites/brain_boss_128x128.png" id="2_2jfxq"]
-[ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_f76ux"]
+[ext_resource type="Script" path="res://Scripts/Components/StateMachine.gd" id="3_f76ux"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Boss/SummonState.gd" id="4_m1kf8"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Boss/idlestate.gd" id="4_nq7g7"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyDying.gd" id="6_3nj7a"]
 [ext_resource type="PackedScene" uid="uid://d1vt3vf1xchbc" path="res://Scenes/Objects/brain_cell.tscn" id="6_5yd2x"]
-[ext_resource type="PackedScene" uid="uid://b85x1jctrkx1c" path="res://Scenes/blinking_component.tscn" id="8_4abd7"]
-[ext_resource type="PackedScene" uid="uid://dofw2roguhfoc" path="res://Scenes/invincible_health_component.tscn" id="9_wu8l4"]
+[ext_resource type="PackedScene" uid="uid://b85x1jctrkx1c" path="res://Scenes/Components/blinking_component.tscn" id="8_4abd7"]
+[ext_resource type="PackedScene" uid="uid://dofw2roguhfoc" path="res://Scenes/Components/invincible_health_component.tscn" id="9_wu8l4"]
 [ext_resource type="Script" path="res://Scripts/Enemies/ContactDamage.gd" id="9_yojnm"]
 [ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="10_hwoi1"]
+[ext_resource type="PackedScene" uid="uid://ccv1g8ihfaeff" path="res://Scenes/Components/health_bar_component.tscn" id="12_d0oqu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_je0wg"]
 radius = 31.0
@@ -241,6 +242,7 @@ enemy = NodePath("../..")
 anim = NodePath("../../AnimatedSprite2D")
 hitboxes = [NodePath("../../ContactDamage/CollisionShape2D"), NodePath("../../ContactDamage/CollisionShape2D2"), NodePath("../../Hitbox/CollisionShape2D"), NodePath("../../Hitbox/CollisionShape2D2")]
 timers = [NodePath("../idle/IdleDuration"), NodePath("../summon/SummonDelay"), NodePath("../summon/SummonTime")]
+win_game = true
 
 [node name="Timer" type="Timer" parent="StateMachine/dying"]
 wait_time = 5.0
@@ -293,6 +295,9 @@ hitboxes = [NodePath("../Hitbox/CollisionShape2D"), NodePath("../Hitbox/Collisio
 invencibility_duration = 3.0
 max_health = 10
 cur_health = 10
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("12_d0oqu")]
+health_component = NodePath("../HealthComponent")
 
 [node name="Summonpos" type="Node2D" parent="."]
 position = Vector2(-101, -55)
