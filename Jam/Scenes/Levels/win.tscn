@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3abye33jvn6f"]
+
+[ext_resource type="Theme" uid="uid://tsxweyrh2p8p" path="res://Resources/main_ui_theme.tres" id="1_py7vs"]
+
+[sub_resource type="GDScript" id="GDScript_d31dp"]
+script/source = "extends Control
+
+func _process(delta):
+	if Input.is_action_just_pressed(\"space\"):
+		G.levels.change_level(Enums.Levels.menu)
+"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_d31dp")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -60.0
+offset_right = 44.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_py7vs")
+text = "You won!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -4.0
+offset_right = 111.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_py7vs")
+text = "Press space to main menu"

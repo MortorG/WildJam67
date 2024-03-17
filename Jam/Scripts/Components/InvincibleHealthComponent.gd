@@ -9,7 +9,7 @@ signal on_invincible_end
 func _ready():
 	$Invincible_duration.set_wait_time(invencibility_duration)
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func invincible_start(_1, _2, _3):

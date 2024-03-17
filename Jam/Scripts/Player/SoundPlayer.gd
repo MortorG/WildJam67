@@ -9,8 +9,8 @@ func _ready():
 		if child is AudioStreamPlayer:
 			sounds[child.name.to_lower()] = child
 
-func play_sound(name: String):
-	var s: AudioStreamPlayer = sounds.get(name.to_lower())
+func play_sound(sound_name: String):
+	var s: AudioStreamPlayer = sounds.get(sound_name.to_lower())
 	if !s:
 		return
 	s.play()

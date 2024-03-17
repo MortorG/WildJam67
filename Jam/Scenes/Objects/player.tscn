@@ -1,8 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://006kxed2ooro"]
+[gd_scene load_steps=23 format=3 uid="uid://006kxed2ooro"]
 
 [ext_resource type="SpriteFrames" uid="uid://b8v1uc1lt22h" path="res://Sprites/player_anims.tres" id="1_ptufu"]
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_w80ao"]
-[ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="2_03wv5"]
+[ext_resource type="Script" path="res://Scripts/Components/StateMachine.gd" id="2_03wv5"]
 [ext_resource type="Script" path="res://Scripts/Player/States/IdleState.gd" id="3_kk5vo"]
 [ext_resource type="Script" path="res://Scripts/Player/States/MovingState.gd" id="4_0loj3"]
 [ext_resource type="Resource" uid="uid://qmmva4j1vte5" path="res://Resources/unlocks.tres" id="4_aavup"]
@@ -12,13 +12,14 @@
 [ext_resource type="AudioStream" uid="uid://bje2olesfjk8v" path="res://Sounds/SFX/Player Sword SFX.wav" id="8_u7fgj"]
 [ext_resource type="PackedScene" uid="uid://c12nt5dkpto6n" path="res://Scenes/Objects/projectile.tscn" id="8_wgypr"]
 [ext_resource type="Script" path="res://Scripts/Player/SoundPlayer.gd" id="10_ftboo"]
-[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="10_s3o1r"]
-[ext_resource type="PackedScene" uid="uid://dofw2roguhfoc" path="res://Scenes/invincible_health_component.tscn" id="10_upiir"]
+[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/Components/knockback_component.tscn" id="10_s3o1r"]
+[ext_resource type="PackedScene" uid="uid://dofw2roguhfoc" path="res://Scenes/Components/invincible_health_component.tscn" id="10_upiir"]
 [ext_resource type="Script" path="res://Scripts/Player/States/dyingstate.gd" id="11_teei1"]
 [ext_resource type="AudioStream" uid="uid://cvqpwyf6ay4iq" path="res://Sounds/SFX/Player Shot SFX.wav" id="11_u14qj"]
-[ext_resource type="PackedScene" uid="uid://b85x1jctrkx1c" path="res://Scenes/blinking_component.tscn" id="12_xpw8x"]
+[ext_resource type="PackedScene" uid="uid://b85x1jctrkx1c" path="res://Scenes/Components/blinking_component.tscn" id="12_xpw8x"]
 [ext_resource type="AudioStream" uid="uid://bcs158l5rpwmj" path="res://Sounds/SFX/Player Hit SFX.wav" id="13_hxurw"]
 [ext_resource type="AudioStream" uid="uid://ypiqkd442tv7" path="res://Sounds/SFX/Player Die SFX.wav" id="14_1apt7"]
+[ext_resource type="PackedScene" uid="uid://ccv1g8ihfaeff" path="res://Scenes/Components/health_bar_component.tscn" id="18_fj5k7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xypcx"]
 radius = 11.0
@@ -125,6 +126,9 @@ position = Vector2(28, 0)
 hitboxes = [NodePath("../Hitbox/CollisionShape2D")]
 max_health = 10
 cur_health = 10
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("18_fj5k7")]
+health_component = NodePath("../HealthComponent")
 
 [node name="KnockbackComponent" parent="." instance=ExtResource("10_s3o1r")]
 

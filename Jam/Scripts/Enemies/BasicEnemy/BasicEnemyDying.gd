@@ -4,6 +4,7 @@ extends State
 @export var anim : AnimatedSprite2D
 @export var hitboxes : Array[CollisionShape2D]
 @export var timers : Array[Timer]
+@export var win_game: bool 
 
 signal enemy_died
 
@@ -21,6 +22,8 @@ func enter():
 func die():
 	enemy.die.emit()
 	enemy.queue_free()
+	if win_game:
+		G.levels.change_level(Enums.Levels.win)
 
 func _on_timer_timeout():
 	die()

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bstq1sscbxl31"]
+
+[ext_resource type="Texture2D" uid="uid://kinmg0vvxgc6" path="res://Sprites/Interface/health_bar.png" id="1_whi0r"]
+[ext_resource type="Script" path="res://Scripts/Interface/HealthBar.gd" id="2_ie01u"]
+
+[node name="HealthBar" type="Node2D"]
+script = ExtResource("2_ie01u")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(-10, -28)
+scale = Vector2(1.15789, 1.33333)
+texture = ExtResource("1_whi0r")
+centered = false
+hframes = 3
+vframes = 2
+frame = 5
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -15,6 +15,5 @@ func enter():
 	$GameOverTime.start()
 
 
-# TODO: ADD GAME OVER SCREEN
 func _on_game_over_time_timeout():
-	pass
+	G.levels.change_level(Enums.Levels.game_over)

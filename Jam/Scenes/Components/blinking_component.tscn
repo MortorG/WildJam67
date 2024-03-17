@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b85x1jctrkx1c"]
 
-[ext_resource type="Script" path="res://Scripts/BlinkingComponent.gd" id="1_fcsfx"]
+[ext_resource type="Script" path="res://Scripts/Components/BlinkingComponent.gd" id="1_fcsfx"]
 
 [node name="BlinkingComponent" type="Node"]
 script = ExtResource("1_fcsfx")

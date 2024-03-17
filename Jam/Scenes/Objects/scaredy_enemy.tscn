@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Enemy.gd" id="1_nmv42"]
 [ext_resource type="SpriteFrames" uid="uid://dhy8shai6l4ss" path="res://Sprites/basic_enemy_anims.tres" id="2_js5bo"]
-[ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_ajf7c"]
+[ext_resource type="Script" path="res://Scripts/Components/StateMachine.gd" id="3_ajf7c"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyIdle.gd" id="4_8t7qf"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyActive.gd" id="5_jhpgk"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy/BasicEnemyDying.gd" id="6_byuus"]
-[ext_resource type="PackedScene" uid="uid://b1g3pff7kvj1m" path="res://Scenes/health_component.tscn" id="7_p2kle"]
-[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/knockback_component.tscn" id="8_h3wwi"]
+[ext_resource type="PackedScene" uid="uid://dwc2t2wuygjf" path="res://Scenes/Components/health_component.tscn" id="7_p2kle"]
+[ext_resource type="PackedScene" uid="uid://dyh0u35clh2cd" path="res://Scenes/Components/knockback_component.tscn" id="8_h3wwi"]
 [ext_resource type="Script" path="res://Scripts/Enemies/ContactDamage.gd" id="9_oc454"]
 [ext_resource type="Script" path="res://Scripts/AttackProperties.gd" id="10_culaa"]
 
@@ -25,7 +25,7 @@ radius = 14.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_t2esa"]
 radius = 14.0
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 position = Vector2(16, 16)
 collision_mask = 193
 platform_on_leave = 2
