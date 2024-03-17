@@ -104,7 +104,7 @@ animations = [{
 
 [node name="Projectile" type="Area2D"]
 collision_layer = 0
-collision_mask = 72
+collision_mask = 73
 script = ExtResource("1_m11hy")
 speed = 150.0
 attack_properties = SubResource("Resource_uaqii")
