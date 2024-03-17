@@ -24,6 +24,9 @@ func exit():
 func _on_attack_delay_timer_timeout():
 	sound_player.play_sound("slash")
 	
+	var dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	player.look_at(dir + player.global_position)
+	
 	var s : Area2D = slash.instantiate()
 	get_parent().get_parent().get_parent().add_child(s)
 	s.position = slashpos.global_position

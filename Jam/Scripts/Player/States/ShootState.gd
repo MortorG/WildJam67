@@ -16,9 +16,12 @@ func enter():
 func _on_shoot_delay_timer_timeout():
 	sound_player.play_sound("shoot")
 	
+	var dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	player.look_at(dir + player.global_position)
+	
 	var s : Area2D = projectile.instantiate()
 	s.position = shootpos.global_position
 	s.rotation = shootpos.global_rotation
-	get_parent().get_parent().get_parent().add_child(s)
+	owner.get_parent().add_child(s)
 	s.set_meta("creator", owner)
 
