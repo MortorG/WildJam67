@@ -230,7 +230,7 @@ summon_scene = ExtResource("6_5yd2x")
 summon_locations = [NodePath("../../Summonpos"), NodePath("../../Summonpos2"), NodePath("../../Summonpos3"), NodePath("../../Summonpos4")]
 
 [node name="SummonDelay" type="Timer" parent="StateMachine/summon"]
-wait_time = 2.5
+wait_time = 3.2
 
 [node name="SummonTime" type="Timer" parent="StateMachine/summon"]
 wait_time = 10.0
@@ -292,7 +292,7 @@ blink_opacity = 0.75
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("hitboxes") instance=ExtResource("9_wu8l4")]
 hitboxes = [NodePath("../Hitbox/CollisionShape2D"), NodePath("../Hitbox/CollisionShape2D2")]
-invencibility_duration = 3.0
+invencibility_duration = 2.6
 max_health = 10
 cur_health = 10
 

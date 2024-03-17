@@ -10,5 +10,6 @@ script = ExtResource("1_r5i78")
 [node name="MainLoop" type="AudioStreamPlayer" parent="."]
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]
+volume_db = -5.0
 
 [connection signal="finished" from="Intro" to="." method="_on_intro_finished"]
